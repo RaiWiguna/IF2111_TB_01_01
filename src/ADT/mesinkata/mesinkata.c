@@ -1,42 +1,36 @@
-#include <stdio.h>
 #include "mesinkata.h"
+#include <stdio.h>
 
-boolean EndWord;
-Word CurrentWord;
+Kata CKata;
 
-void IgnoreBlanks() {
-    while (currentChar == BLANK && currentChar != MARK) {
+void IgnoreBlank() {
+    while (CC == BLANK) {
         ADV();
     }
 }
 
-void STARTWORD() {
-    START(); 
-    IgnoreBlanks();  
-    if (currentChar == MARK) {
-        EndWord = true;  
-    } else {
-        EndWord = false;
-        CopyWord(); 
+void STARTKATA() {
+    START();
+    IgnoreBlank();
+    if (CC != MARK) {
+        SalinKata();
     }
 }
 
-void ADVWORD() {
-    IgnoreBlanks();  
-    if (currentChar == MARK) {
-        EndWord = true;  
-    } else {
-        CopyWord();  
+void ADVKATA() {
+    IgnoreBlank();
+    if (CC != MARK) {
+        SalinKata();
     }
 }
 
-void CopyWord() {
-    CurrentWord.Length = 0; 
-    while (currentChar != BLANK && currentChar != MARK && CurrentWord.Length < NMax) {
-        CurrentWord.TabWord[CurrentWord.Length] = currentChar; 
-        CurrentWord.Length++; 
-        ADV(); 
+void SalinKata() {
+    int i = 0;
+    while ((CC != MARK) && (CC != BLANK) && (i < NMax)) {
+        CKata.TabKata[i] = CC;
+        ADV();
+        i++;
     }
-    
-    CurrentWord.TabWord[CurrentWord.Length] = '\0'; 
+    CKata.TabKata[i] = '\0';
+    CKata.Length = i;
 }
