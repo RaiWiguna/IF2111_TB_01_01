@@ -10,5 +10,7 @@ extern int EOP;
 
 void START();
 void ADV();
+char GetCC(); /* Mengirimkan currentChar */
+
 
 #endif

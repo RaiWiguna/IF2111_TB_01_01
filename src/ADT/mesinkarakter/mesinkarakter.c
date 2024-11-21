@@ -12,3 +12,7 @@ void ADV() {
     CC = getchar();
     EOP = (CC == MARK);
 }
+
+char GetCC(){
+    return CC;
+}
