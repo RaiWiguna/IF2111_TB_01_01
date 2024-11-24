@@ -26,7 +26,7 @@ int compareString(const char *str1, const char *str2) {
 void getSecretWord(char *secretWord) {
     const char *words[] = {"TUBES", "ARRAY", "INDEX", "QUEUE", "STACK"};
     srand(time(0));
-    copyString(secretWord, words[rand() % 5]); // Replace strcpy with myStrcpy
+    copyString(secretWord, words[rand() % 5]);
 }
 
 void checkGuess(const char *secretWord, const char *guess, char *review) {
