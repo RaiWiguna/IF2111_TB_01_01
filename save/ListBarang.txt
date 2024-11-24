@@ -1,7 +1,7 @@
 6
-Platypus Laser
-hrink Ray
-Net Shooter
-Camouflage Cloak
-Sleep Dart Gun
-Bubble Blaster
+10 Platypus Laser
+20 hrink Ray
+20 Net Shooter
+20 Camouflage Cloak
+20 Sleep Dart Gun
+35 Bubble Blaster

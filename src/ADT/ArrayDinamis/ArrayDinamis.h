@@ -6,6 +6,7 @@
 
 #include <stdio.h>
 #include "../../boolean.h"
+#include "../mesinkata/mesinkata.h"
 
 /* Kamus Umum */
 #define InitialSize 10

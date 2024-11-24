@@ -11,7 +11,7 @@ int main(){
     InsertFirstArrDin(&tst,"kamu");
     InsertFirstArrDin(&tst,"saya");
     InsertLastArrDin(&tst,"anda");
-    InsertAtArrDin(&tst,"kami",2);
+    InsertAtArrDin(&tst,"kami 3",2);
 
     printf("Isi ArrayDin:\n");
     CetakArrayDin(tst);

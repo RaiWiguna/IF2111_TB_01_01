@@ -6,10 +6,10 @@ boolean EOP;
 static FILE *pita;
 static int retval;
 
-void START() {
+void START(FILE *file) {
     /* Mesin siap dioperasikan. Pita disiapkan ... */
     /* Algoritma */
-    pita = stdin;
+    pita = file;
     ADV();
 }
 

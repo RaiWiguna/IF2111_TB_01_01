@@ -38,3 +38,7 @@ Membaca bagian item pada user;
 */
 
 void WriteFile(FILE *file);
+
+int main(){
+    ReadFile("../../../save/ListBarang.txt");
+}

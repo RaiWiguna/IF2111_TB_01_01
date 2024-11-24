@@ -1,6 +1,9 @@
 {
     "files.associations": {
         "*.hs": "haskell",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "scanfile.h": "c",
+        "mesinkata.h": "c",
+        "boolean.h": "c"
     }
 }

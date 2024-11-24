@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 #include "ArrayDinamis.h"
-#include "../mesinkata/mesinkata.h"
+
 // Konstruktor
 void MakeArrayDin(ArrayDin *array) {
     (*array).input = (string *)malloc(InitialSize * sizeof(string));

@@ -4,7 +4,9 @@
 #include "mesinkata.h"
 
 boolean EndWord;
-Word CurrentWord;
+Word CurrentWord1;
+Word CurrentWord2;
+
 
 void IgnoreBlanks() {
     while (currentChar == BLANK && currentChar != MARK) {
@@ -12,35 +14,47 @@ void IgnoreBlanks() {
     }
 }
 
-void STARTWORD() {
-    START(); 
+void STARTWORD_Item(FILE *file) {
+    START(file); 
     IgnoreBlanks();  
     if (currentChar == MARK) {
         EndWord = true;  
     } else {
         EndWord = false;
-        CopyWord(); 
+        CopyWord_Item(); 
     }
 }
 
-void ADVWORD() {
+void ADVWORD_Item() {
     IgnoreBlanks();  
     if (currentChar == MARK) {
         EndWord = true;  
     } else {
-        CopyWord();  
+        CopyWord_Item();  
     }
 }
 
-void CopyWord() {
-    CurrentWord.Length = 0; 
-    while (currentChar != BLANK && currentChar != MARK && CurrentWord.Length < NMax) {
-        CurrentWord.TabWord[CurrentWord.Length] = currentChar; 
-        CurrentWord.Length++; 
+void CopyWord_Item() {
+    // Kamus Lokal
+    CurrentWord1.Length=0;
+    CurrentWord2.Length=0;
+
+    // Algoritma
+    while(currentChar!=BLANK && currentChar != MARK && CurrentWord1.Length < NMax && currentChar!=NEWLINE) {
+        CurrentWord1.TabWord[CurrentWord1.Length] = currentChar; 
+        CurrentWord1.Length++; 
         ADV(); 
     }
     
-    CurrentWord.TabWord[CurrentWord.Length] = '\0';
+    CurrentWord1.TabWord[CurrentWord1.Length] = '\0';
+    IgnoreBlanks();
+    while(currentChar != MARK && CurrentWord2.Length < NMax && currentChar!=NEWLINE) {
+        CurrentWord2.TabWord[CurrentWord2.Length] = currentChar; 
+        CurrentWord2.Length++; 
+        ADV(); 
+    }
+    
+    CurrentWord2.TabWord[CurrentWord2.Length] = '\0';
 }
 
 void StrcpyToWord(Word *dest, const char *src) {
