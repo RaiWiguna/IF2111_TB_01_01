@@ -1,6 +1,28 @@
 #include <stdio.h>
 #include "console.h"
 
+void Load(ArrayDin *Item,boolean *login){
+    // Kamus lokal
+    Word tempWord;
+    char filePath[200];
+
+    // Algoritma Meminta Input
+    printf(">> LOAD ");
+    STARTWORD();
+    StrcpyToWord(&tempWord,CurrentWord.TabWord);
+
+    // membaca file
+    sprintf(filePath,"../../../save/%s",tempWord.TabWord);
+    ReadFile(filePath,Item);
+    (*login)=true;
+}
+
+void Start(boolean login){
+    if(login == true){
+        printf("File konfigurasi aplikasi berhasil dibaca. PURRMART berhasil dijalankan.\n");
+    }
+}
+
 void storeList(ArrayDin Item){
     if(Item.Neff == 0){
         printf("TOKO KOSONG\n");

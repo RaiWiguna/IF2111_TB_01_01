@@ -106,24 +106,46 @@ void storeRemove(ArrayDin *Item){
     }
 }
 
+void Load(ArrayDin *Item,boolean *login){
+    // Kamus lokal
+    Word tempWord;
+    char filePath[200];
+
+    // Algoritma Meminta Input
+    printf(">> LOAD ");
+    STARTWORD();
+    StrcpyToWord(&tempWord,CurrentWord.TabWord);
+
+    // membaca file
+    sprintf(filePath,"../../../save/%s",tempWord.TabWord);
+    ReadFile(filePath,Item);
+    (*login)=true;
+}
+
+void Start(boolean login){
+    if(login == true){
+        printf("File konfigurasi aplikasi berhasil dibaca. PURRMART berhasil dijalankan.\n");
+    }
+}
 
 int main(){
     ArrayDin Item;
     Queue permintaan;
+    boolean login=false;
     CreateQueue(&permintaan);
-    ReadFile("../../../save/ListBarang.txt",&Item);
+    Load(&Item,&login);
+    Start(login);
 
-
-    //storeList(Item);
-    enqueue(&permintaan,"kamu");
-    enqueue(&permintaan,"saya");
-    enqueue(&permintaan,"kami");
-    enqueue(&permintaan,"anda");
-    CetakArrayDin(Item);
-    printf("\n");
-    // storeSupply(permintaan,&Item);
-    storeRemove(&Item);
-    CetakArrayDin(Item);
+    storeList(Item);
+    // enqueue(&permintaan,"kamu");
+    // enqueue(&permintaan,"saya");
+    // enqueue(&permintaan,"kami");
+    // enqueue(&permintaan,"anda");
+    // CetakArrayDin(Item);
+    // printf("\n");
+    // // storeSupply(permintaan,&Item);
+    // storeRemove(&Item);
+    // CetakArrayDin(Item);
 }
 
 
