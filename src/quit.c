@@ -3,7 +3,7 @@
 #include "mesinkarakter.h"
 #include "save.h"
 
-void quit(boolean *status, TabInt T){
+void QUIT(boolean *status, TabInt T){
     int len = 0; 
     printf("Apakah kamu ingin menyimpan data sesi sekarang (Y/N)? ");
 
