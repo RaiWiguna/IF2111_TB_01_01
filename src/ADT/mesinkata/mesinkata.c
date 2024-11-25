@@ -4,6 +4,7 @@
 #include "mesinkata.h"
 
 boolean EndWord;
+Word CurrentWord;
 Word CurrentWord1;
 Word CurrentWord2;
 
@@ -11,6 +12,17 @@ Word CurrentWord2;
 void IgnoreBlanks() {
     while (currentChar == BLANK && currentChar != MARK) {
         ADV();
+    }
+}
+
+void STARTWORD(FILE *file) {
+    START(file); 
+    IgnoreBlanks();  
+    if (currentChar == MARK) {
+        EndWord = true;  
+    } else {
+        EndWord = false;
+        CopyWord(); 
     }
 }
 
@@ -25,6 +37,15 @@ void STARTWORD_Item(FILE *file) {
     }
 }
 
+void ADVWORD() {
+    IgnoreBlanks();  
+    if (currentChar == MARK) {
+        EndWord = true;  
+    } else {
+        CopyWord();  
+    }
+}
+
 void ADVWORD_Item() {
     IgnoreBlanks();  
     if (currentChar == MARK) {
@@ -32,6 +53,17 @@ void ADVWORD_Item() {
     } else {
         CopyWord_Item();  
     }
+}
+
+void CopyWord() {
+    CurrentWord.Length = 0; 
+    while (currentChar != BLANK && currentChar != MARK && CurrentWord.Length < NMax) {
+        CurrentWord.TabWord[CurrentWord.Length] = currentChar; 
+        CurrentWord.Length++; 
+        ADV(); 
+    }
+    
+    CurrentWord.TabWord[CurrentWord.Length] = '\0'; 
 }
 
 void CopyWord_Item() {

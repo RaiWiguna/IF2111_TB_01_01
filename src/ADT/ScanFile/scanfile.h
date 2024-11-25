@@ -12,10 +12,10 @@
 /* Kamus Umum */
 
 // Process
-void ReadFile(const char *filePath);/*
+void ReadFile(const char *filePath,ArrayDin *item);/*
 Hanya untuk membuka dan membaca file
 */
-void ReadItem();/*
+void ReadItem(FILE *file,ArrayDin *Item);/*
 Membaca bagian item pada file
 */
 void ReadUser(FILE *file);/*

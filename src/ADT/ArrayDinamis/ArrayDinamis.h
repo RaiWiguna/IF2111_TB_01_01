@@ -9,16 +9,27 @@
 #include "../mesinkata/mesinkata.h"
 
 /* Kamus Umum */
+#define MAX_LEN 100
 #define InitialSize 10
 
 // Variable 
 typedef char* string;
 typedef int Index;
-typedef struct 
-{
-    string* input;
-    int Capacity;
-    int Neff;
+typedef struct {
+  char name[MAX_LEN];
+  char password[MAX_LEN];
+  int money;
+} User;
+
+typedef struct {
+  char name[MAX_LEN];
+  int price;
+} Item;
+
+typedef struct {
+    Item* elements;  // Array elemen bertipe Item
+    int Capacity;    // Kapasitas maksimum
+    int Neff;        // Banyaknya elemen efektif
 } ArrayDin;
 
 // Konstruktor 
@@ -33,6 +44,10 @@ Mengembalikan kapasitas dari array
 
 int LengthArrDin(ArrayDin array);/*
 Mengembalikan nilai ekeftif dari array
+*/
+
+void CetakNameArrayDin(ArrayDin array);/*
+Mencetak isi nama dari array
 */
 
 void CetakArrayDin(ArrayDin array);/*
@@ -60,15 +75,28 @@ string GetInput(ArrayDin array, Index i);/*
 */
 
 // Pengolahan Data
-void InsertFirstArrDin(ArrayDin *array, string input);/*
+void InsertFirstNameArrDin(ArrayDin *array, string input);/*
     Memasukkan pada element pertama, kedalam array dinamis.
 */
 
-void InsertAtArrDin(ArrayDin *array, string input, Index i);/*
+void InsertFirstArrDin(ArrayDin *array,string price,string name);/*
+    Memasukkan  name ke element pertama, kedalam array dinamis.
+*/
+
+void InsertAtNameArrDin(ArrayDin *array, string input, Index i);/*
     Memasukkan input kedalam Array sesuai indeks, dengan batasan indeks < nilai efektif.
 */
 
-void InsertLastArrDin(ArrayDin *array, string input);/*
+void InsertAtArrDin(ArrayDin *array, string price, string name, Index i);/*
+    Memasukkan name kedalam Array sesuai indeks, dengan batasan indeks < nilai efektif.
+*/
+
+
+void InsertLastNameArrDin(ArrayDin *array, string input);/*
+    Memasukkan name pada akhir array
+*/
+
+void InsertLastArrDin(ArrayDin *array,string price,string name);/*
     Memasukkan elemen pada akhir array
 */
 

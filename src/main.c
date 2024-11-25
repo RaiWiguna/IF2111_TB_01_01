@@ -13,7 +13,12 @@ int main(){
     #else
         system("clear");  // Untuk Linux/Mac
     #endif
-    Welcomemenu();
-    STARTWORD();
-    Input = CurrentWord;
+    //Welcomemenu();
 }
+/*
+int main(){
+    ArrayDin Item;
+    ReadFile("../../../save/ListBarang.txt",&Item);
+    storeList(Item);
+}
+*/
