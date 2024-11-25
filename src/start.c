@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "user.h"
-#include "item.h"
+// #include "....h" //pakai array item
 #include "start.h"
 
 void start(Item *arrItem, User *arrUser){
@@ -24,6 +24,7 @@ void loading(){
 }
 
 void welcome(){
+    
     printf("\n");
     printf("                                    W  E  L  C  O  M  E     T  O                                    \n");
     printf("     _ __                                               ___    ,---.                  ,--.--------. \n");
@@ -37,10 +38,8 @@ void welcome(){
     printf("`--`---'    `--`..---'  `--`-`--`--'`--`-`--`--'`--`./  `--` `--`        `--`-`--`--'      `--`--`  \n");
 
     printf("\n");
-    printf("               ======================================================================               \n");
-    printf("                                   L O G I N   ||   R E G I S T E R                                 \n");
-    printf("               ======================================================================               \n");
+    printf("         ==================================================================================         \n");
+    printf("             1. L O G I N   ||   2. R E G I S T E R   ||   3. H E L P   ||   4. Q U I T             \n");
+    printf("         ==================================================================================         \n");
     printf("\n");
-
 }
-                                                                   
