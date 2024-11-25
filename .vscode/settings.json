@@ -4,6 +4,7 @@
         "stdio.h": "c",
         "scanfile.h": "c",
         "mesinkata.h": "c",
-        "boolean.h": "c"
+        "boolean.h": "c",
+        "mesinkar.h": "c"
     }
 }

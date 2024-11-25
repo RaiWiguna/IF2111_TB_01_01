@@ -6,14 +6,26 @@ boolean EOP;
 static FILE *pita;
 static int retval;
 
-void START(FILE *file) {
+void START(){
+    pita =stdin;
+    ADV();
+}
+void START_File(FILE *file) {
     /* Mesin siap dioperasikan. Pita disiapkan ... */
     /* Algoritma */
     pita = file;
-    ADV();
+    ADV_File();
 }
 
-void ADV() {
+void ADV(){
+    retval = fscanf(pita, "%c", &currentChar);
+    EOP = (currentChar == EOF||currentChar=='\n');
+    if (EOP) {
+        currentChar ='\0';
+    }
+}
+
+void ADV_File() {
     /* Pita dimajukan satu karakter. ... */
     /* Algoritma */ 
     retval = fscanf(pita, "%c", &currentChar);

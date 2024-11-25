@@ -13,7 +13,6 @@
 #define InitialSize 10
 
 // Variable 
-typedef char* string;
 typedef int Index;
 typedef struct {
   char name[MAX_LEN];
@@ -119,5 +118,9 @@ Index SearchArrDin(ArrayDin array, string input);/*
 
 // Boolean
 boolean IsEmpty(ArrayDin array);
+
+boolean IsInArrDin(ArrayDin array,string input);/*
+    Membalikan nilai, apakah elemen yang dicari ada di array atau tidak.
+*/
 
 #endif

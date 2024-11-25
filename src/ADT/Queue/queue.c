@@ -58,13 +58,44 @@ void displayQueue (Queue q){
         int IndexTail = IDX_TAIL(q);
         while (i != (IndexTail+1)%CAPACITY){
             if(i == IndexTail){
-                printf("%d",q.buffer[i]);
+                printf("%s",q.buffer[i]);
             }
             else{
-                printf("%d,",q.buffer[i]);
+                printf("%s,",q.buffer[i]);
             }
             i = (i+1) %CAPACITY;
         }
         printf("]\n");
     }
+}
+
+// Boolean
+boolean IsInQueue(Queue q,string input){
+  // Kamus Lokal
+  string temp;
+  string mark;
+  int count=0;
+  boolean found = false;
+
+  if(isEmpty(q)){
+    return false;
+  }
+  else{
+    dequeue(&q,&temp);
+    enqueue(&q,temp);
+    mark = temp;
+    dequeue(&q,&temp);
+    while(!found&& count==0){
+      enqueue(&q,temp);
+      if(IsSame(temp,input)){
+        found = true;
+      }
+      dequeue(&q,&temp);
+      if(IsSame(temp,mark)){
+        enqueue(&q,temp);
+        count ++;
+      }
+    }
+    return found;
+  }
 }

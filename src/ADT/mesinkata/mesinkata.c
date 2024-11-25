@@ -15,10 +15,19 @@ void IgnoreBlanks() {
     }
 }
 
-void STARTWORD(FILE *file) {
-    START(file); 
+void IgnoreBlanks_File() {
+    while (currentChar == BLANK && currentChar != MARK) {
+        ADV_File();
+    }
+}
+
+void STARTWORD() {
+    for(int i=0; i< NMax ;i++){
+        CurrentWord.TabWord[i] ='\0';
+    }
+    START(); 
     IgnoreBlanks();  
-    if (currentChar == MARK) {
+    if (currentChar == '\0') {
         EndWord = true;  
     } else {
         EndWord = false;
@@ -27,7 +36,7 @@ void STARTWORD(FILE *file) {
 }
 
 void STARTWORD_Item(FILE *file) {
-    START(file); 
+    START_File(file); 
     IgnoreBlanks();  
     if (currentChar == MARK) {
         EndWord = true;  
@@ -56,13 +65,12 @@ void ADVWORD_Item() {
 }
 
 void CopyWord() {
-    CurrentWord.Length = 0; 
-    while (currentChar != BLANK && currentChar != MARK && CurrentWord.Length < NMax) {
+    CurrentWord.Length = 0;
+    while (currentChar != MARK && CurrentWord.Length < NMax) { 
         CurrentWord.TabWord[CurrentWord.Length] = currentChar; 
         CurrentWord.Length++; 
         ADV(); 
     }
-    
     CurrentWord.TabWord[CurrentWord.Length] = '\0'; 
 }
 
@@ -75,15 +83,15 @@ void CopyWord_Item() {
     while(currentChar!=BLANK && currentChar != MARK && CurrentWord1.Length < NMax && currentChar!=NEWLINE) {
         CurrentWord1.TabWord[CurrentWord1.Length] = currentChar; 
         CurrentWord1.Length++; 
-        ADV(); 
+        ADV_File(); 
     }
     
     CurrentWord1.TabWord[CurrentWord1.Length] = '\0';
-    IgnoreBlanks();
+    IgnoreBlanks_File();
     while(currentChar != MARK && CurrentWord2.Length < NMax && currentChar!=NEWLINE) {
         CurrentWord2.TabWord[CurrentWord2.Length] = currentChar; 
         CurrentWord2.Length++; 
-        ADV(); 
+        ADV_File(); 
     }
     
     CurrentWord2.TabWord[CurrentWord2.Length] = '\0';
@@ -104,16 +112,32 @@ void StrcpyToWord(Word *dest, const char *src) {
     
     (*dest).Length = i;
 }
-
+// Processing
+int strLength(const char *str){
+    // Kamus Lokal
+    int i =0, strLen=0;
+    // Algoritma
+    while(str[i] != '\0'){
+        i++;
+        strLen++;
+    }
+    return strLen;
+}
+// boolean
 boolean IsSame(const char *str1,const char *str2){
     // Kamus Lokal 
     int i =0;
     // Algoritma
-    while(str1[i] != '\0' && str2[i] != '\0'){
-        if(str1[i] != str2[i]){
-            return false;
-        }
+    if(strLength(str1)!= strLength(str2)){
+        return false;
+    }
+    else{
+        while(str1[i] != '\0' && str2[i] != '\0'){
+            if(str1[i] != str2[i]){
+                return false;
+            }
         i++;
+        }
     }
     return true;
 }

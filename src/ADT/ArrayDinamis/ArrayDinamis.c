@@ -236,10 +236,28 @@ Index SearchArrDin(ArrayDin array, string input){
         }
     }
     return i;
-
 }
 
 // Boolean
 boolean IsEmpty(ArrayDin array){
     return(array.Neff == 0);
+}
+
+boolean IsInArrDin(ArrayDin array, string input){
+    // Kamus lokal
+    int length = LengthArrDin(array);
+    int i=0;
+    int out=-1;
+    boolean found =false;
+
+    // Algoritma
+    while(!found && i<length){
+        if(IsSame(array.elements[i].name,input)){
+            found = true;
+        }
+        else{
+            i++;
+        }
+    }
+    return found;
 }

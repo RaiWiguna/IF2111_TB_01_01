@@ -4,13 +4,14 @@
 #ifndef QUEUE_H
 #define QUEUE_H
 
-#include "boolean.h"
+#include "../../boolean.h"
+#include "../mesinkata/mesinkata.h"
 
 #define IDX_UNDEF -1
 #define CAPACITY 100
 
 /* Definisi elemen dan address */
-typedef int ElType;
+typedef string ElType;
 typedef struct {
 	ElType buffer[CAPACITY]; 
 	int idxHead;
@@ -65,5 +66,9 @@ void displayQueue(Queue q);
 /* Contoh : jika ada tiga elemen bernilai 1, 20, 30 akan dicetak: [1,20,30] */
 /* Jika Queue kosong : menulis [] */
 
+// Boolean
+boolean IsInQueue(Queue q,string input);/*
+        Mencari apakah nilai tersebut ada dalam Queue
+*/
 
 #endif
