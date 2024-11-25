@@ -67,7 +67,7 @@ void displayQueue(Queue q);
 /* Jika Queue kosong : menulis [] */
 
 // Boolean
-boolean IsInQueue(Queue q,string input);/*
+boolean IsInQueue(Queue *q, string input);/*
         Mencari apakah nilai tersebut ada dalam Queue
 */
 

@@ -70,32 +70,30 @@ void displayQueue (Queue q){
 }
 
 // Boolean
-boolean IsInQueue(Queue q,string input){
-  // Kamus Lokal
-  string temp;
-  string mark;
-  int count=0;
-  boolean found = false;
+boolean IsInQueue(Queue *q, string input) {
+    string temp;
+    Queue tempQueue;
+    CreateQueue(&tempQueue);
+    boolean found = false;
 
-  if(isEmpty(q)){
-    return false;
-  }
-  else{
-    dequeue(&q,&temp);
-    enqueue(&q,temp);
-    mark = temp;
-    dequeue(&q,&temp);
-    while(!found&& count==0){
-      enqueue(&q,temp);
-      if(IsSame(temp,input)){
-        found = true;
-      }
-      dequeue(&q,&temp);
-      if(IsSame(temp,mark)){
-        enqueue(&q,temp);
-        count ++;
-      }
+    if (isEmpty(*q)) {
+        return false;
     }
+
+    // Proses pengecekan dan simpan salinan elemen dalam tempQueue
+    while (!isEmpty(*q)) {
+        dequeue(q, &temp);
+        enqueue(&tempQueue, temp);  // Salin elemen ke tempQueue
+    }
+
+    // Proses pengecekan dan kembalikan elemen ke antrian asli
+    while (!isEmpty(tempQueue)) {
+        dequeue(&tempQueue, &temp);
+        if (IsSame(temp, input)) {
+            found = true;
+        }
+        enqueue(q, temp);  // Mengembalikan elemen ke antrian asli dengan aman
+    }
+
     return found;
-  }
 }

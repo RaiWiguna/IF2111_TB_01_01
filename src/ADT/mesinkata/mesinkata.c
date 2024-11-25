@@ -112,6 +112,16 @@ void StrcpyToWord(Word *dest, const char *src) {
     
     (*dest).Length = i;
 }
+
+void StrcpyToString(string dest, const Word *src) {
+    int i = 0;
+    while (i < src->Length && i < NMax - 1) { // Pastikan tidak melebihi batas
+        dest[i] = src->TabWord[i];
+        i++;
+    }
+    dest[i] = '\0'; // Akhiri dengan null terminator
+}
+
 // Processing
 int strLength(const char *str){
     // Kamus Lokal

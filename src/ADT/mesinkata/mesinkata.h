@@ -61,6 +61,10 @@ void StrcpyToWord(Word *dest, const char *src);/*
    Mengcopy sebuah string kedalam bentuk array
 */
 
+void StrcpyToString(string dest, const Word *src);/*
+   Mencopy sebuah word (menyimpan length, dan tabword), menjadi sebuah string saja (menyimpan nilai tabword)
+   * Berfungsi mencegah pointersharing
+*/
 boolean IsSame(const char *str1,const char *str2);/*
    Melakukan komparasi apakah kedua kata sama atau tidak
 */
