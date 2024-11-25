@@ -14,11 +14,6 @@
 
 // Variable 
 typedef int Index;
-typedef struct {
-  char name[MAX_LEN];
-  char password[MAX_LEN];
-  int money;
-} User;
 
 typedef struct {
   char name[MAX_LEN];

@@ -2,14 +2,14 @@
 #include <stdlib.h>
 
 #include "scanfile.h"
-#include "../Queue/queue.h"
 
-void ReadFile(const char *filePath,ArrayDin *item){
+void ReadFile(const char *filePath,ArrayDin *item,List *Account){
     FILE *file = fopen(filePath, "r");
     if (file == NULL) {
         printf("Error: File tidak dapat dibuka.\n");
     }
     ReadItem(file,item);
+    ReadUser(file,Account);
 }
 
 void ReadItem(FILE *file,ArrayDin *Item){
@@ -25,9 +25,19 @@ void ReadItem(FILE *file,ArrayDin *Item){
         InsertLastArrDin(Item,CurrentWord1.TabWord,CurrentWord2.TabWord);
     }
 }
-void ReadUser(FILE *file);/*
-Membaca bagian item pada user;
-*/
+
+void ReadUser(FILE *file,List *Account){
+    // Kamus Lokal 
+    int n;
+    // Algorima    
+    MakeList(Account);
+    STARTWORD_User(file);
+    n = atoi(CurrentWord3.TabWord);
+    for(int i =0; i<n ;i++){
+        STARTWORD_User(file);
+        InsertLastList(Account,CurrentWord3.TabWord,CurrentWord4.TabWord,CurrentWord5.TabWord);
+    }
+}
 
 void WriteFile(FILE *file);
 
@@ -46,7 +56,6 @@ void storeRequest(Queue *Req, ArrayDin Item) {
     printf("Nama barang yang diminta: ");
     STARTWORD();
     StrcpyToString(input, &CurrentWord);  // Salin kata yang diminta
-    printf("%s input\n", input);
 
     // Pastikan item tidak ada di antrian dan toko
     if (!IsInQueue(Req, input) && !IsInArrDin(Item, input)) {
@@ -55,8 +64,7 @@ void storeRequest(Queue *Req, ArrayDin Item) {
         printf("Barang dengan nama yang sama sudah ada di toko!\n");
     } else {
         printf("Barang dengan nama yang sama sudah ada di antrian!\n");
-    }
-    displayQueue(*Req);  // Tampilkan antrian setelah penambahan
+    } 
 }
 
 void storeSupply(Queue Req, ArrayDin *Item) {
@@ -72,6 +80,7 @@ void storeSupply(Queue Req, ArrayDin *Item) {
         printf("Harga barang: ");
         STARTWORD();  
         StrcpyToString(price, &CurrentWord);
+        printf("%s\n",price);
         InsertLastArrDin(Item, price, temp); 
         printf("%s dengan harga %s telah ditambahkan ke toko.\n", temp, price);
     } 
@@ -106,7 +115,7 @@ void storeRemove(ArrayDin *Item){
     }
 }
 
-void Load(ArrayDin *Item,boolean *login){
+void Load(ArrayDin *Item,List *Account,boolean *login){
     // Kamus lokal
     Word tempWord;
     char filePath[200];
@@ -118,7 +127,7 @@ void Load(ArrayDin *Item,boolean *login){
 
     // membaca file
     sprintf(filePath,"../../../save/%s",tempWord.TabWord);
-    ReadFile(filePath,Item);
+    ReadFile(filePath,Item,Account);
     (*login)=true;
 }
 
@@ -131,20 +140,22 @@ void Start(boolean login){
 int main(){
     ArrayDin Item;
     Queue permintaan;
+    List Account;
     boolean login=false;
     CreateQueue(&permintaan);
-    Load(&Item,&login);
-    Start(login);
-
-    storeList(Item);
-    // enqueue(&permintaan,"kamu");
-    // enqueue(&permintaan,"saya");
+    ReadFile("../../../save/ListBarang.txt",&Item,&Account);
+    //storeList(Item);
+    enqueue(&permintaan,"sepatu batu");
+    storeRequest(&permintaan,Item);
+    //Load(&Item,&Account,&login);
+    //Start(login);
+    //enqueue(&permintaan,"saya");
     // enqueue(&permintaan,"kami");
     // enqueue(&permintaan,"anda");
     // CetakArrayDin(Item);
     // printf("\n");
-    // // storeSupply(permintaan,&Item);
-    // storeRemove(&Item);
+    //displayQueue(permintaan);
+    //storeRemove(&Item);
     // CetakArrayDin(Item);
 }
 

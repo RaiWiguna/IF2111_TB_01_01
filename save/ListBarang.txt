@@ -5,3 +5,7 @@
 20 Camouflage Cloak
 20 Sleep Dart Gun
 35 Bubble Blaster
+3
+100 admin alstrukdatkeren
+25 praktikan kerenbangetkak
+10 praktikum halohalo

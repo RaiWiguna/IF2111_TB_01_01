@@ -5,19 +5,27 @@
 #ifndef ADTList1
 #define ADTList1
 
-#include "boolean.h"
+#include "../../boolean.h"
+#include "../mesinkata/mesinkata.h"
 
 /* Kamus Umum */
 #define MaxEl 100
 #define Mark -9999  /* Nilai tak terdefinisi */
 #define InvalidIdx -1  /* Indeks tak terdefinisi */
+#define MAX_LEN 100
 
 /* Definisi elemen dan koleksi objek */
 #define IdxType int
-#define ElType int
+#define ElType string
 
 typedef struct {
-	ElType A[MaxEl];  /* Memori tempat penyimpanan elemen (container) */
+  char name[MAX_LEN];
+  char password[MAX_LEN];
+  int money;
+} User;
+
+typedef struct {
+	User Account[MaxEl];  /* Memori tempat penyimpanan elemen (container) */
     int Neff;
 } List;
 
@@ -38,16 +46,16 @@ List MakeList();
 
 /* ********** TEST KOSONG/PENUH ********** */
 /* *** Test list kosong *** */
-boolean IsEmpty(List L);
+boolean IsEmptyList(List L);
 /* Mengirimkan true jika list L kosong, mengirimkan false jika tidak */
 
 /* *** Menghasilkan sebuah elemen *** */
-ElType Get(List L, IdxType i);
-/* Prekondisi : list tidak kosong, i antara FirstIdx(T)..LastIdx(T) */
-/* Mengirimkan elemen list yang ke-i */
+ElType GetUser(List L, IdxType i);
+
+ElType GetPassword(List L, IdxType i);
 
 /* *** Selektor SET : Mengubah nilai list dan elemen list *** */
-void Set(List *L, IdxType i, ElType v);
+void Set(List *L, IdxType i, ElType Acc, ElType Pass,ElType money);
 /* I.S. T terdefinisi, sembarang */
 /* F.S. Elemen T yang ke-i bernilai v */
 
@@ -91,7 +99,7 @@ void InsertAt(List *L, ElType X, IdxType i);
 /* I.S. L terdefinisi, tidak kosong, i merupakan indeks lojik yang valid di L. */
 /* F.S. v disisipkan dalam L pada indeks ke-i (bukan menimpa elemen di i). */
 
-void InsertLast(List *L, ElType X);
+void InsertLastList(List *L, string Acc, string Pass,string money);
 /* I.S. L terdefinisi, mungkin kosong. */
 /* F.S. v menjadi elemen terakhir L. */
 
@@ -107,9 +115,4 @@ void DeleteLast(List *L);
 /* I.S. L terdefinisi, tidak kosong. */
 /* F.S. F diset dengan elemen terakhir L, elemen terakhir L dihapus dari L. */
 
-List Concat(List L1, List L2);
-/* Prekondisi : L1 dan L2 tidak kosong */
-/* Mengirimkan sebuah List yang merupakan gabungan dari L1 dan L2 */
-/* Urutan elemen terisi dari L1, lalu L2 */
-/* Contoh : L1 : [1, 2]; L2 : [3, 4]; Mengembalikan [1, 2, 3, 4] */
 #endif

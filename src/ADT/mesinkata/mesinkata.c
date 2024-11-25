@@ -7,6 +7,9 @@ boolean EndWord;
 Word CurrentWord;
 Word CurrentWord1;
 Word CurrentWord2;
+Word CurrentWord3;
+Word CurrentWord4;
+Word CurrentWord5;
 
 
 void IgnoreBlanks() {
@@ -43,6 +46,17 @@ void STARTWORD_Item(FILE *file) {
     } else {
         EndWord = false;
         CopyWord_Item(); 
+    }
+}
+
+void STARTWORD_User(FILE *file){
+    START_File(file); 
+    IgnoreBlanks();  
+    if (currentChar == MARK) {
+        EndWord = true;  
+    } else {
+        EndWord = false;
+        CopyWord_User(); 
     }
 }
 
@@ -88,6 +102,7 @@ void CopyWord_Item() {
     
     CurrentWord1.TabWord[CurrentWord1.Length] = '\0';
     IgnoreBlanks_File();
+
     while(currentChar != MARK && CurrentWord2.Length < NMax && currentChar!=NEWLINE) {
         CurrentWord2.TabWord[CurrentWord2.Length] = currentChar; 
         CurrentWord2.Length++; 
@@ -95,6 +110,37 @@ void CopyWord_Item() {
     }
     
     CurrentWord2.TabWord[CurrentWord2.Length] = '\0';
+}
+
+void CopyWord_User(){
+    // Kamus Lokal 
+    CurrentWord3.Length=0;
+    CurrentWord4.Length=0;
+    CurrentWord5.Length=0;
+
+    // Algoritma
+    while(currentChar!=BLANK && currentChar != MARK && CurrentWord3.Length < NMax && currentChar!=NEWLINE) {
+        CurrentWord3.TabWord[CurrentWord3.Length] = currentChar; 
+        CurrentWord3.Length++; 
+        ADV_File(); 
+    }
+    CurrentWord3.TabWord[CurrentWord3.Length] = '\0';
+    IgnoreBlanks_File();
+
+    while(currentChar!=BLANK && currentChar != MARK && CurrentWord4.Length < NMax && currentChar!=NEWLINE) {
+        CurrentWord4.TabWord[CurrentWord4.Length] = currentChar; 
+        CurrentWord4.Length++; 
+        ADV_File(); 
+    }
+    CurrentWord4.TabWord[CurrentWord4.Length] = '\0';
+    IgnoreBlanks_File();
+
+    while(currentChar!=BLANK && currentChar != MARK && CurrentWord5.Length < NMax && currentChar!=NEWLINE) {
+        CurrentWord5.TabWord[CurrentWord5.Length] = currentChar; 
+        CurrentWord5.Length++; 
+        ADV_File(); 
+    }
+    CurrentWord5.TabWord[CurrentWord5.Length] = '\0';
 }
 
 void StrcpyToWord(Word *dest, const char *src) {
@@ -120,6 +166,10 @@ void StrcpyToString(string dest, const Word *src) {
         i++;
     }
     dest[i] = '\0'; // Akhiri dengan null terminator
+}
+
+void copyString(char *dest, const char *src) {
+    while ((*dest++ = *src++));
 }
 
 // Processing

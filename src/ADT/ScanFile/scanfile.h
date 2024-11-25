@@ -8,17 +8,19 @@
 
 #include "../../boolean.h"
 #include "../ArrayDinamis/ArrayDinamis.h"
+#include "../Queue/queue.h"
+#include "../listlinear/listlinear.h"
 
 /* Kamus Umum */
 
 // Process
-void ReadFile(const char *filePath,ArrayDin *item);/*
+void ReadFile(const char *filePath,ArrayDin *item,List *Account);/*
 Hanya untuk membuka dan membaca file
 */
 void ReadItem(FILE *file,ArrayDin *Item);/*
 Membaca bagian item pada file
 */
-void ReadUser(FILE *file);/*
+void ReadUser(FILE *file,List *Account);/*
 Membaca bagian item pada user;
 */
 

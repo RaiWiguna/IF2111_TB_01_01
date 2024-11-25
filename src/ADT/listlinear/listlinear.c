@@ -1,35 +1,38 @@
 #include <stdio.h>
+#include <stdlib.h>
+
 #include "listlinear.h"
 
 // Konstruktor
 
 List MakeList() {
+	// Kamus lokal
 	List L;
-	IdxType i;
-	for (i = 0; i < MaxEl; i++) {
-		L.A[i] = Mark;
-	}
+	// Algoritma
+	L.Neff=0;
 	return L;
 }
 
-boolean IsEmpty(List L) {
-	return (L.A[0] == Mark);
+boolean IsEmptyList(List L) {
+	return (L.Neff == 0);
 }
 
 int Length(List L) {
-	int i = 0;
-	while (L.A[i] != Mark) {
-		i += 1;
-	}
-	return i;
+	return(L.Neff);
 }
 
-ElType Get(List L, IdxType i) {
-	return L.A[i];
-}
+// ElType GetUser(List L, IdxType i) {
+// 	return (L.Account[i].name);
+// }
 
-void Set(List *L, IdxType i, ElType v) {
-	(*L).A[i] = v;
+// ElType GetPassword(List L, IdxType i) {
+// 	return (L.Account[i].password);
+// }
+
+void Set(List *L, IdxType i, string Acc, string Pass,string money) {
+	copyString((*L).Account[i].name,Acc);
+	copyString((*L).Account[i].password,Pass);
+	(*L).Account[i].money = atoi(money);
 }
 
 IdxType FirstIdx(List L) {
@@ -38,7 +41,7 @@ IdxType FirstIdx(List L) {
 
 IdxType LastIdx(List L) {
 	int i = FirstIdx(L);
-	while ((i < MaxEl) && (L.A[i+1] != Mark)) {
+	while ((i < MaxEl) && (L.Neff != Mark)) {
 		i += 1;
 	}
 	return i;
@@ -52,86 +55,71 @@ boolean IsIdxEff (List L, IdxType i) {
 	return (FirstIdx(L) <= i) && (LastIdx(L) >= i);
 }
 
-boolean Search(List L, ElType X) {
-	int i = FirstIdx(L);
-	int j = LastIdx(L);
-	boolean found = false;
-	while ((i <= j) && !found) {
-		i += 1;
-		if (L.A[i] == X) {
-			found = true;
-		}
-	}
-    return found;
+// boolean Search(List L, ElType X) {
+// 	int i = FirstIdx(L);
+// 	int j = LastIdx(L);
+// 	boolean found = false;
+// 	while ((i <= j) && !found) {
+// 		i += 1;
+// 		if (L.A[i] == X) {
+// 			found = true;
+// 		}
+// 	}
+//     return found;
+// }
+
+// void InsertFirst(List *L, ElType X) {
+// 	IdxType i = LastIdx(*L);
+// 	IdxType j = FirstIdx(*L);
+// 	while (i > j) {
+// 		Set(L, i+1, Get(*L, i));
+// 		i--;
+// 	}
+// 	Set(L, j, X);
+// }
+
+// void InsertAt(List *L, ElType X, IdxType i) {
+//     IdxType j = LastIdx(*L);
+// 	while (i <= j) {
+// 		Set(L, j+1, Get(*L, j));
+//         j--;
+// 	}
+// 	Set(L, i, X);
+// }
+
+void InsertLastList(List *L, string Acc, string Pass,string money ) {
+    // Kamus Lokal
+	int last = Length(*L)-1;
+
+	// Algoritma
+	copyString((*L).Account[last].name,Acc);
+	copyString((*L).Account[last].password,Pass);
+	(*L).Account[last].money = atoi(money);
+
+	(*L).Neff++;
 }
 
-void InsertFirst(List *L, ElType X) {
-	IdxType i = LastIdx(*L);
-	IdxType j = FirstIdx(*L);
-	while (i > j) {
-		Set(L, i+1, Get(*L, i));
-		i--;
-	}
-	Set(L, j, X);
-}
+// void DeleteFirst(List *L) {
+// 	int i = FirstIdx(*L);
+// 	while (i < LastIdx(*L)) {
+// 		(*L).A[i] = (*L).A[i+1];
+//         i++;
+// 	}
+//     (*L).A[i] = Mark;
+// }
 
-void InsertAt(List *L, ElType X, IdxType i) {
-    IdxType j = LastIdx(*L);
-	while (i <= j) {
-		Set(L, j+1, Get(*L, j));
-        j--;
-	}
-	Set(L, i, X);
-}
+// void DeleteAt(List *L, IdxType i) {
+// 	int j = LastIdx(*L);
+// 	// while (i <= j) {
+// 	// 	(*L).A[j] = (*L).A[j+1];
+//     //     j--;
+// 	// }
+// 	while (i <= j) {
+// 		(*L).A[i] = (*L).A[i+1];
+//         i++;
+// 	}
+// }
 
-void InsertLast(List *L, ElType X) {
-    if (IsEmpty(*L)) {
-        InsertFirst(L, X);
-    } else {
-        (*L).A[LastIdx(*L) + 1] = X;
-    }
-}
-
-void DeleteFirst(List *L) {
-	int i = FirstIdx(*L);
-	while (i < LastIdx(*L)) {
-		(*L).A[i] = (*L).A[i+1];
-        i++;
-	}
-    (*L).A[i] = Mark;
-}
-
-void DeleteAt(List *L, IdxType i) {
-	int j = LastIdx(*L);
-	// while (i <= j) {
-	// 	(*L).A[j] = (*L).A[j+1];
-    //     j--;
-	// }
-	while (i <= j) {
-		(*L).A[i] = (*L).A[i+1];
-        i++;
-	}
-}
-
-void DeleteLast(List *L) {
-	(*L).A[LastIdx(*L)] = Mark;
-}
-
-List Concat(List L1, List L2) {
-	List L3 = MakeList();
-	int i = FirstIdx(L1);
-	int j = FirstIdx(L2);
-	int idx = 0;
-	while (i <= LastIdx(L1)) {
-		L3.A[idx] = L1.A[i];
-        idx++;
-        i++;
-	}
-	while (j <= LastIdx(L2)) {
-		L3.A[idx] = L2.A[j];
-        idx++;
-        j++;
-	}
-
-    return L3;
-}
+// void DeleteLast(List *L) {
+// 	(*L).A[LastIdx(*L)] = Mark;
+// }
