@@ -2,6 +2,7 @@
 #include "quit.h"
 #include "mesinkarakter.h"
 #include "save.h"
+#include "listlinear.h"
 
 void QUIT(boolean *status, TabInt T){
     int len = 0; 
@@ -10,12 +11,12 @@ void QUIT(boolean *status, TabInt T){
     START();
     printf("\n");
 
-    if (CC == 'Y' || CC == 'y'){
+    if (currentChar == 'Y' || currentChar == 'y'){
         char file[1000];
         printf("Menyimpan ke file: ");
         ADV();
-        while (CC != MARK && len < 1000){
-            file[len] = CC;
+        while (currentChar != MARK && len < 1000){
+            file[len] = currentChar;
             len++;
             ADV();
         }
@@ -29,7 +30,7 @@ void QUIT(boolean *status, TabInt T){
         }
     }
 
-    else if(CC == 'N' || CC == 'n'){
+    else if(currentChar == 'N' || currentChar == 'n'){
         printf("\nAman aja. Kamu bisa menyimpannya lain kali. \n");
     }
     else{
