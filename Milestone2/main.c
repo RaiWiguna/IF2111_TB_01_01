@@ -1,153 +1,77 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
-#include <math.h>
-#include "console.h"
+#include "wishlistconsole.h" // Header untuk fungsi wishlist
 
-void clearTerminal() {
-#ifdef _WIN32
-    system("cls");
-#else
-    system("clear");
-#endif
+void printMenu() {
+    printf("===== MENU WISHLIST =====\n");
+    printf("1. Tambahkan barang ke wishlist (WISHLIST ADD)\n");
+    printf("2. Menukar isi barang (WISHLIST SWAP)\n");
+    printf("3. Hapus barang dari wishlist berdasarkan nama (WISHLIST REMOVE)\n");
+    printf("4. Hapus barang dari wishlist berdasarkan index (WISHLIST REMOVE BY INDEX)\n");
+    printf("5. Tampilkan isi wishlist (WISHLIST SHOW)\n");
+    printf("6. Kosongkan wishlist (WISHLIST CLEAR)\n");
+    printf("7. Keluar\n");
+    printf("=========================\n");
+    printf("Masukkan pilihan: ");
 }
 
-int main(){
-    // Kamus Lokal
-    User u;
-    ArrayDin Item;
-    TabInt T;
-    Queue Q;
-    boolean status = false;
-    boolean login =false;
-    boolean loginActive = false;
-    int currentUserIndex = -1;
-    MakeList(&T);
-    MakeArrayDin(&Item);
+int main() {
+    LinkedList wishlist;
+    CreateList(&wishlist); // Inisialisasi wishlist kosong
 
-    // Algoritma
-    clearTerminal();
+    int choice;
+    do {
+        printMenu();
+        scanf("%d", &choice);
+        getchar(); // Membersihkan buffer setelah scanf
 
-    int menuState = 1, tes=0;
-    
-    while (1)
-    {
-        if(menuState == 1) {
-
-            printf("\nMasukkan command: ");
-            STARTWORD();
-
-            if (IsSame(CurrentWord.TabWord, "start"))
-            {
-                Start(login);
-                menuState = 2;
-            }
-            else if (IsSame(CurrentWord.TabWord, "load"))
-            {
-                Load(&Item, &login);
-            }
-            else if(IsSame(CurrentWord.TabWord, "quit"))
-            {
-                QUIT(&status, T);
+        switch (choice) {
+            case 1:
+                // Tambahkan barang ke wishlist
+                wishlistAdd(&wishlist);
                 break;
-            }
-            else if (IsSame(CurrentWord.TabWord, "help"))
-            {
-                clearTerminal();
-                Help(menuState);
-            } 
-            else {
-                printf("Command tidak valid\n");
-            }
-        } 
-        else if (menuState == 2)
-        {
-            printf("\nMasukkan command: ");
-            STARTWORD();
 
-            if (IsSame(CurrentWord.TabWord, "register"))
-            {
-                Register();
-            }
-            else if (IsSame(CurrentWord.TabWord, "login"))
-            {
-                Login(currentUserIndex, &loginActive);
-                if (loginActive) 
-                {
-                    menuState = 3; 
-                    Help(menuState);
-                }
-            } 
-            else if(IsSame(CurrentWord.TabWord, "quit"))
-            {
-                QUIT(&status, T);
-                break;
-            }
-            else if (IsSame(CurrentWord.TabWord, "help"))
-            {
-                clearTerminal();
-                Help(menuState);
-            } 
-            else {
-                printf("Command tidak valid\n");
-            }
-
-        } 
-        else if (menuState == 3)
-        {
-            printf("\nMasukkan command: ");
-            STARTWORD();
-
-            if (IsSame(CurrentWord.TabWord, "work"))
-            {
-                Work(&u);
-            } 
-            else if (IsSame(CurrentWord.TabWord, "work challenge"))
-            {
-                workChallenge(&u);
-            } 
-            else if(IsSame(CurrentWord.TabWord, "store list"))
-            {
-                storeList(Item);
-            } 
-            else if (IsSame(CurrentWord.TabWord, "store request"))
-            {
-                storeRequest(&Q, Item);
-            } 
-            else if (IsSame(CurrentWord.TabWord, "store supply"))
-            {
-                storeSupply(Q, &Item);
-            } 
-            else if (IsSame(CurrentWord.TabWord, "store remove"))
-            {
-                storeRemove(&Item);
-            } 
-            else if (IsSame(CurrentWord.TabWord, "logout"))
-            {
-                Logout(currentUserIndex);
-                menuState = 2;
-            } 
-            else if (IsSame(CurrentWord.TabWord, "save")) {
-                printf("Masukkan nama file untuk menyimpan data: ");
-                string filename;
+            case 2:
+                // Menukar isi barang
+                int i, j;
                 STARTWORD();
-                filename = CurrentWord.TabWord;
-                SAVE(filename, T);
-            }
-            else if (IsSame(CurrentWord.TabWord, "quit"))
-            {
-                QUIT(&status, T);
+                i = atoi(CurrentWord.TabWord);
+                STARTWORD();
+                j = atoi(CurrentWord.TabWord);
+                wishlistSwap(&wishlist, i, j);
                 break;
-            } 
-            else if (IsSame(CurrentWord.TabWord, "help"))
-            {
-                clearTerminal();
-                Help(menuState);
-            } 
-            else {
-                printf("Command tidak valid\n");
-            }
 
+            case 3:
+                // Hapus barang berdasarkan nama
+                wishlistRemove(&wishlist);
+                break;
+
+            case 4:
+                // Hapus barang berdasarkan index
+                int index;
+                STARTWORD();
+                index = atoi(CurrentWord.TabWord);
+                wishlistRemoveNumber(&wishlist, index);
+                break;
+
+            case 5:
+                // Tampilkan isi wishlist
+                wishlistShow(wishlist);
+                break;
+
+            case 6:
+                // Kosongkan wishlist
+                wishlistClear(&wishlist);
+                break;
+
+            case 7:
+                printf("Terima kasih telah menggunakan program wishlist!\n");
+                break;
+
+            default:
+                printf("Pilihan tidak valid. Silakan coba lagi.\n");
         }
-    }
+    } while (choice != 6);
+
+    return 0;
 }
