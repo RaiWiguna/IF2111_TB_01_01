@@ -4,16 +4,11 @@
 #include <stdio.h>
 
 void wishlistAdd(LinkedList *L) {
-    char item[256]; // Buffer untuk nama barang yang akan ditambahkan
+    char* item;
 
     printf("Masukkan nama barang: ");
-    fgets(item, sizeof(item), stdin); // Membaca input dari pengguna
-
-    // Menghapus newline karakter yang dihasilkan oleh fgets
-    int len = strlen_custom(item);
-    if (item[len - 1] == '\n') {
-        item[len - 1] = '\0';
-    }
+    STARTWORD();
+    item = CurrentWord.TabWord;
 
     Address temp = FirstL(*L);
 
@@ -101,16 +96,11 @@ void wishlistRemoveNumber(LinkedList *L, int index) {
 }
 
 void wishlistRemove(LinkedList *L) {
-    char item[256]; // Buffer untuk nama barang yang akan dihapus
+    char* item;
 
     printf("Masukkan nama barang yang akan dihapus: ");
-    fgets(item, sizeof(item), stdin); // Membaca input dari pengguna
-
-    // Menghapus newline karakter yang dihasilkan oleh fgets
-    int len = strlen_custom(item);
-    if (item[len - 1] == '\n') {
-        item[len - 1] = '\0';
-    }
+    STARTWORD();
+    item = CurrentWord.TabWord;
 
     Address temp = FirstL(*L);
 
