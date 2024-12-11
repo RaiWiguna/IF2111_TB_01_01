@@ -71,7 +71,7 @@ int main() {
             default:
                 printf("Pilihan tidak valid. Silakan coba lagi.\n");
         }
-    } while (choice != 6);
+    } while (choice != 7);
 
     return 0;
 }
