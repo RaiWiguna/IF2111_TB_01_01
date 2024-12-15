@@ -16,7 +16,8 @@ AK47
 2
 30 AKM
 25 Pistol
-0
+1
+Cheetos
 300 User2 KamuKmau
 0
 0
