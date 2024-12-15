@@ -16,6 +16,7 @@ void ReadItem(FILE *file,ArrayDin *Item){
     int n;
 
     // Algoritma
+    (*Item).Neff = 0;
     STARTWORD_Item(file);
     n  = atoi(CurrentWord1.TabWord);
     for(int i =0; i<n;i++){
@@ -192,70 +193,3 @@ void storeRemove(ArrayDin *Item){
         printf("Toko tidak menjual %s.\n",input.TabWord);
     }
 }
-
-void Load(FILE **file, boolean *login){
-    // Kamus lokal
-    Word tempWord;
-    char filePath[200];
-
-    // Algoritma Meminta Input
-    printf(">> LOAD ");
-    STARTWORD();
-
-    // membaca file
-    sprintf(filePath,"../save/%s",CurrentWord.TabWord);
-    *file = fopen(filePath, "r");
-    (*login)=true;
-    if(*file != NULL){
-        printf("File %s berhasil di load.\n",CurrentWord.TabWord);
-    }
-}
-
-void Login(Word *LoginAccount,List L){
-    // Kamus Lokal
-    Word Username,Password;
-    boolean Condition;
-    int length = Length(L);
-    int i=0;
-
-    // Algoritma
-    if((*LoginAccount).Length != 0){
-        printf("Lakukan logout dari Akun %s terlebih dahulu.\n",(*LoginAccount).TabWord);
-    }
-    else{
-        printf("Username :");
-        STARTWORD();
-        StrcpyToWord(&Username,CurrentWord.TabWord);
-
-        printf("Password :");
-        STARTWORD();
-        StrcpyToWord(&Password,CurrentWord.TabWord);
-
-        while(i<length && !Condition){
-            if(IsSame(L.Account[i].name,Username.TabWord)){
-                Condition = true;
-                i = i-1;
-            }
-            i++;
-        }
-        if(!Condition){
-            printf("Username belum terdaftar atau salah.\n");
-        }
-        else{
-            if(!IsSame(L.Account[i].password,Password.TabWord)){
-                printf("Password yang anda masukkan salah.\n");
-            }
-            else{
-                StrcpyToWord(LoginAccount,Username.TabWord);
-                printf("Login ke akun %s berhasil.\n",Username);
-            }
-        }
-    }
-}
-
-void Start(boolean login){
-    if(login == true){
-        printf("File konfigurasi aplikasi berhasil dibaca. PURRMART berhasil dijalankan.\n");
-    }
-}
-

@@ -4,8 +4,7 @@
 #include <math.h>
 
 #include "menu.h"
-#include "ADT\ScanFile\scanfile.h"
-#include "ADT\mesinkata\mesinkata.h"
+#include "console.h"
 
 int main(){
     // Kamus
@@ -26,13 +25,24 @@ int main(){
 
     // Algoritma
     StrcpyToWord(&LoginAccount,"admin");
-    // Load(&file,&login);
+    // Start(&file,&Item);
+    // Load(&file);
     ReadFile(file,&Item,&UserItem,&Account);
+    // CetakArrayDin(Item);
     // Login(&LoginAccount,Account);
     CreateUserItem(file,&UserItem,LoginAccount);
     CreateUserWhislist(file,&Whistlist,LoginAccount);
     PrintInfoListLin(Whistlist);
-    // CetakArrayDin(UserItem);
+    CetakArrayDin(UserItem);
+
+    // Logout(&LoginAccount,&UserItem,&Whistlist);
+    // Register(&LoginAccount,&Account);
+    
+    // Logout(&LoginAccount,&UserItem,&Whistlist);
+    // StrcpyToWord(&LoginAccount,"User1");
+    // CreateUserWhislist(file,&Whistlist,LoginAccount);
+    // PrintInfoListLin(Whistlist);
+
     // printf("%d",LengthArrDin(UserItem));
     //storeList(Item);
     //Load(&Item,&Account,&login);

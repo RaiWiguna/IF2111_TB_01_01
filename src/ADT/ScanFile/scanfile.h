@@ -29,9 +29,6 @@ void WriteFile(FILE *file);/*
 Menulis ulang file setelah dilakukan save
 */
 
-void Load(FILE **file, boolean *login);/*
-Melakukan Load File, menyimpan path dah membuka file.
-*/
 void CreateUserWhislist(FILE *file, ListLinier *Whistlist, Word LoginAccount);/*
 Membuat whislist dari akun yang telah login
 */
@@ -39,7 +36,5 @@ Membuat whislist dari akun yang telah login
 void CreateUserItem(FILE *file, ArrayDin *UserItem, Word LoginAccount);/*
 Membuat array yang berisikan Item dari Akun yang telah login
 */
-
-void Login(Word *LoginAccount,List L);
 
 #endif
