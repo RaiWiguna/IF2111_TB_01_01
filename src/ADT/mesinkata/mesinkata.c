@@ -10,6 +10,8 @@ Word CurrentWord2;
 Word CurrentWord3;
 Word CurrentWord4;
 Word CurrentWord5;
+Word CurrentWordWithBlank;
+Word CurrentWordStringToInteger;
 
 
 void IgnoreBlanks() {
@@ -60,6 +62,44 @@ void STARTWORD_User(FILE *file){
     }
 }
 
+void STARTWORD_Looping(FILE *file){
+    START_File(file);
+    CurrentWordStringToInteger.Length =1;
+    CurrentWordStringToInteger.TabWord[0]=currentChar;
+    IgnoreBlanks();
+    if(currentChar == MARK){
+        EndWord = true;
+    }
+    else{
+        Skip_Line(file);
+    }
+}
+
+void STARTWORD_WithBlank(FILE *file){
+    START_File(file); 
+    IgnoreBlanks();  
+    if (currentChar == MARK) {
+        EndWord = true;  
+    } else {
+        EndWord = false;
+        CopyWord_WithBlank(); 
+    }
+}
+void Skip_Line(FILE *file){
+    while(currentChar != NEWLINE){
+        ADV_File();
+    }
+}
+
+void Skip_Looping(FILE *file, int n){
+    for(int i=0;i<n;i++){
+        STARTWORD_Looping(file);
+    }
+    if(n==0){
+       Skip_Line(file); // Tetap melakukan pembacaan pada baris yang mengandung nilai 0
+    }
+}
+
 void ADVWORD() {
     IgnoreBlanks();  
     if (currentChar == MARK) {
@@ -86,6 +126,20 @@ void CopyWord() {
         ADV(); 
     }
     CurrentWord.TabWord[CurrentWord.Length] = '\0'; 
+}
+
+void CopyWord_WithBlank(){
+    // Kamus Lokal
+    CurrentWordWithBlank.Length=0;
+
+    //Algoritma
+    while(currentChar != MARK && CurrentWordWithBlank.Length < NMax && currentChar!=NEWLINE) {
+        CurrentWordWithBlank.TabWord[CurrentWordWithBlank.Length] = currentChar; 
+        CurrentWordWithBlank.Length++; 
+        ADV_File(); 
+    }
+    CurrentWordWithBlank.TabWord[CurrentWordWithBlank.Length]='\0';
+
 }
 
 void CopyWord_Item() {
@@ -162,6 +216,7 @@ void StrcpyToWord(Word *dest, const char *src) {
 void StrcpyToString(string dest, const Word *src) {
     int i = 0;
     while (i < src->Length && i < NMax - 1) { // Pastikan tidak melebihi batas
+        printf("%d",i);
         dest[i] = src->TabWord[i];
         i++;
     }

@@ -5,7 +5,27 @@
 20 Camouflage Cloak
 20 Sleep Dart Gun
 35 Bubble Blaster
-3
-100 admin alstrukdatkeren
-25 praktikan kerenbangetkak
-10 praktikum halohalo
+6
+100 admin alstrukdatkeren5
+1
+15 AK47
+2
+Ayam Goreng Crisbar
+AK47
+200 User1 akukamu
+2
+30 AKM
+25 Pistol
+0
+300 User2 KamuKmau
+0
+0
+300 User2 KamuKmau
+0
+0
+300 User2 KamuKmau
+0
+0
+300 User2 KamuKmau
+0
+0

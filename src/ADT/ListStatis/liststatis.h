@@ -59,6 +59,9 @@ void Set(List *L, IdxType i, ElType Acc, ElType Pass,ElType money);
 /* I.S. T terdefinisi, sembarang */
 /* F.S. Elemen T yang ke-i bernilai v */
 
+void CetakList(List L);/*
+    Mencetak isi list dari L;
+*/
 /* ********** SELEKTOR ********** */
 /* *** Banyaknya elemen *** */
 int Length(List L);

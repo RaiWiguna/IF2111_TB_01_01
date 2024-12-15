@@ -4,6 +4,8 @@
 #ifndef __MESINKATA_H__
 #define __MESINKATA_H__
 
+#include <stdio.h>
+
 #include "..\..\boolean.h"
 #include "..\mesinkar\mesinkar.h"
 
@@ -25,6 +27,8 @@ extern Word CurrentWord2;
 extern Word CurrentWord3;
 extern Word CurrentWord4;
 extern Word CurrentWord5;
+extern Word CurrentWordWithBlank;
+extern Word CurrentWordStringToInteger;
 
 
 void IgnoreBlanks();
@@ -34,13 +38,27 @@ void IgnoreBlanks();
 
 void IgnoreBlanks_File();
 
-void STARTWORD();
+void STARTWORD();/*
+   Membaca input dari keyboard
+*/
 
 void STARTWORD_Item(FILE *file);
 
 void STARTWORD_User(FILE *file);/*
    Membaca user
 */
+
+void STARTWORD_Looping(FILE *file); /*
+   Membaca berapa banyak looping yang harus dilakukan
+*/
+
+void STARTWORD_WithBlank(FILE *file);/*
+   Membaca file dengan tipe mengabaikan space.
+*/
+void Skip_Line(FILE *file);
+
+void Skip_Looping(FILE *file, int n);
+
 void ADVWORD();
 
 void ADVWORD_Item();
@@ -63,6 +81,10 @@ void CopyWord_Item();
 void CopyWord_User();/*
    Khusus mengcopy user dari file.txt
 */
+
+void CopyWord_WithBlank();/*
+   Membaca pada file dengan tipe baris yang tidak mengabaikan spasi.
+*/
 void StrcpyToWord(Word *dest, const char *src);/*
    Mengcopy sebuah string kedalam bentuk array
 */
@@ -84,4 +106,5 @@ int strLength(const char *str); /*
 boolean IsSame(const char *str1,const char *str2);/*
    Melakukan komparasi apakah kedua kata sama atau tidak
 */
+
 #endif

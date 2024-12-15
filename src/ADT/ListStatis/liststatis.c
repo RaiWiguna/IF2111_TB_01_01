@@ -1,10 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "listlinear.h"
+#include "liststatis.h"
 
 // Konstruktor
-
 List MakeList() {
 	// Kamus lokal
 	List L;
@@ -13,6 +12,7 @@ List MakeList() {
 	return L;
 }
 
+// Processing
 boolean IsEmptyList(List L) {
 	return (L.Neff == 0);
 }
@@ -20,6 +20,7 @@ boolean IsEmptyList(List L) {
 int Length(List L) {
 	return(L.Neff);
 }
+
 
 // ElType GetUser(List L, IdxType i) {
 // 	return (L.Account[i].name);
@@ -35,6 +36,15 @@ void Set(List *L, IdxType i, string Acc, string Pass,string money) {
 	(*L).Account[i].money = atoi(money);
 }
 
+void CetakList(List L){
+	// Kamus Lokal 
+	int length = Length(L);
+
+	// Algoritma
+	for (int i =0;i<length;i++){
+		printf("%d %s %s\n",L.Account[i].money,L.Account[i].name,L.Account[i].password);
+	}
+}
 IdxType FirstIdx(List L) {
     return 0;
 }
@@ -87,9 +97,9 @@ boolean IsIdxEff (List L, IdxType i) {
 // 	Set(L, i, X);
 // }
 
-void InsertLastList(List *L, string Acc, string Pass,string money ) {
+void InsertLastList(List *L, string money, string Acc,string Pass ) {
     // Kamus Lokal
-	int last = Length(*L)-1;
+	int last = Length(*L);
 
 	// Algoritma
 	copyString((*L).Account[last].name,Acc);

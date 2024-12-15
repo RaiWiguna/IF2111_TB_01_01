@@ -3,21 +3,19 @@
 
 #include "scanfile.h"
 
-void ReadFile(const char *filePath,ArrayDin *item,List *Account){
-    FILE *file = fopen(filePath, "r");
+void ReadFile(FILE *file,ArrayDin *item, ArrayDin *UserItem, List *Account){
     if (file == NULL) {
         printf("Error: File tidak dapat dibuka.\n");
     }
     ReadItem(file,item);
-    ReadUser(file,Account);
+    ReadUser(file,Account,UserItem);
 }
 
 void ReadItem(FILE *file,ArrayDin *Item){
     // Kamus Lokal 
     int n;
+
     // Algoritma
-    MakeArrayDin(Item);
-    
     STARTWORD_Item(file);
     n  = atoi(CurrentWord1.TabWord);
     for(int i =0; i<n;i++){
@@ -26,16 +24,96 @@ void ReadItem(FILE *file,ArrayDin *Item){
     }
 }
 
-void ReadUser(FILE *file,List *Account){
+void ReadUser(FILE *file,List *Account,ArrayDin *UserItem){
     // Kamus Lokal 
     int n;
-    // Algorima    
-    MakeList(Account);
-    STARTWORD_User(file);
-    n = atoi(CurrentWord3.TabWord);
-    for(int i =0; i<n ;i++){
+    int loop;
+    // Algorima  
+
+    STARTWORD_Looping(file);
+    n = atoi(CurrentWordStringToInteger.TabWord);
+    for(int i=0; i<n ;i++){
         STARTWORD_User(file);
         InsertLastList(Account,CurrentWord3.TabWord,CurrentWord4.TabWord,CurrentWord5.TabWord);
+        
+        STARTWORD_Looping(file);
+        loop = atoi(CurrentWordStringToInteger.TabWord);
+        Skip_Looping(file,loop);
+
+        STARTWORD_Looping(file);
+        loop = atoi(CurrentWordStringToInteger.TabWord);
+        Skip_Looping(file,loop);
+    }
+}
+
+void CreateUserWhislist(FILE *file, ListLinier *Whistlist,Word LoginAccount){
+    // Kamus Lokal
+    int n;
+    int loop;
+
+    // Algoritma
+    rewind(file);
+    STARTWORD_Looping(file);
+    loop = atoi(CurrentWordStringToInteger.TabWord);
+    Skip_Looping(file,loop);
+
+    STARTWORD_Looping(file);
+    n = atoi(CurrentWordStringToInteger.TabWord);
+    for(int i=0; i<n ;i++){
+        STARTWORD_User(file);
+        if(IsSame(CurrentWord4.TabWord,LoginAccount.TabWord)){
+            STARTWORD_Looping(file);
+            loop = atoi(CurrentWordStringToInteger.TabWord);
+            Skip_Looping(file,loop);
+
+            STARTWORD_Looping(file);
+            loop = atoi(CurrentWordStringToInteger.TabWord);
+            for(int i=0;i<loop;i++){
+                STARTWORD_WithBlank(file);
+                InsVLastListLin(Whistlist,CurrentWordWithBlank.TabWord);
+            }
+            break;
+        }
+        else{
+            STARTWORD_Looping(file);
+            loop = atoi(CurrentWordStringToInteger.TabWord);
+            Skip_Looping(file,loop);
+
+            STARTWORD_Looping(file);
+            loop = atoi(CurrentWordStringToInteger.TabWord);
+            Skip_Looping(file,loop);
+        }
+    }
+}
+
+void CreateUserItem(FILE *file,ArrayDin *UserItem, Word LoginAccount){
+    // Kamus Lokal 
+    int n;
+    int loop;
+    // Algorima  
+
+    rewind(file);
+    STARTWORD_Looping(file);
+    loop = atoi(CurrentWordStringToInteger.TabWord); // Melakukan skip pada file item yang ada pada game
+    Skip_Looping(file,loop);
+
+    STARTWORD_Looping(file);
+    n = atoi(CurrentWordStringToInteger.TabWord);
+    for(int i=0; i<n ;i++){
+        STARTWORD_User(file);
+        if(IsSame(CurrentWord4.TabWord,LoginAccount.TabWord)){
+            ReadItem(file,UserItem);
+            break;
+        }
+        else{
+            STARTWORD_Looping(file);
+            loop = atoi(CurrentWordStringToInteger.TabWord);
+            Skip_Looping(file,loop);
+
+            STARTWORD_Looping(file);
+            loop = atoi(CurrentWordStringToInteger.TabWord);
+            Skip_Looping(file,loop);
+        }
     }
 }
 
@@ -115,7 +193,7 @@ void storeRemove(ArrayDin *Item){
     }
 }
 
-void Load(ArrayDin *Item,List *Account,boolean *login){
+void Load(FILE **file, boolean *login){
     // Kamus lokal
     Word tempWord;
     char filePath[200];
@@ -123,12 +201,56 @@ void Load(ArrayDin *Item,List *Account,boolean *login){
     // Algoritma Meminta Input
     printf(">> LOAD ");
     STARTWORD();
-    StrcpyToWord(&tempWord,CurrentWord.TabWord);
 
     // membaca file
-    sprintf(filePath,"../../../save/%s",tempWord.TabWord);
-    ReadFile(filePath,Item,Account);
+    sprintf(filePath,"../save/%s",CurrentWord.TabWord);
+    *file = fopen(filePath, "r");
     (*login)=true;
+    if(*file != NULL){
+        printf("File %s berhasil di load.\n",CurrentWord.TabWord);
+    }
+}
+
+void Login(Word *LoginAccount,List L){
+    // Kamus Lokal
+    Word Username,Password;
+    boolean Condition;
+    int length = Length(L);
+    int i=0;
+
+    // Algoritma
+    if((*LoginAccount).Length != 0){
+        printf("Lakukan logout dari Akun %s terlebih dahulu.\n",(*LoginAccount).TabWord);
+    }
+    else{
+        printf("Username :");
+        STARTWORD();
+        StrcpyToWord(&Username,CurrentWord.TabWord);
+
+        printf("Password :");
+        STARTWORD();
+        StrcpyToWord(&Password,CurrentWord.TabWord);
+
+        while(i<length && !Condition){
+            if(IsSame(L.Account[i].name,Username.TabWord)){
+                Condition = true;
+                i = i-1;
+            }
+            i++;
+        }
+        if(!Condition){
+            printf("Username belum terdaftar atau salah.\n");
+        }
+        else{
+            if(!IsSame(L.Account[i].password,Password.TabWord)){
+                printf("Password yang anda masukkan salah.\n");
+            }
+            else{
+                StrcpyToWord(LoginAccount,Username.TabWord);
+                printf("Login ke akun %s berhasil.\n",Username);
+            }
+        }
+    }
 }
 
 void Start(boolean login){
@@ -136,27 +258,4 @@ void Start(boolean login){
         printf("File konfigurasi aplikasi berhasil dibaca. PURRMART berhasil dijalankan.\n");
     }
 }
-
-int main(){
-    ArrayDin Item;
-    Queue permintaan;
-    List Account;
-    boolean login=false;
-    CreateQueue(&permintaan);
-    ReadFile("../../../save/ListBarang.txt",&Item,&Account);
-    //storeList(Item);
-    enqueue(&permintaan,"sepatu batu");
-    storeRequest(&permintaan,Item);
-    //Load(&Item,&Account,&login);
-    //Start(login);
-    //enqueue(&permintaan,"saya");
-    // enqueue(&permintaan,"kami");
-    // enqueue(&permintaan,"anda");
-    // CetakArrayDin(Item);
-    // printf("\n");
-    //displayQueue(permintaan);
-    //storeRemove(&Item);
-    // CetakArrayDin(Item);
-}
-
 
