@@ -1,6 +1,6 @@
 6
 10 Platypus Laser
-20 hrink Ray
+20 Shrink Ray
 20 Net Shooter
 20 Camouflage Cloak
 20 Sleep Dart Gun

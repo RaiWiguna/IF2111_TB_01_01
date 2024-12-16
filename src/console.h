@@ -30,4 +30,20 @@ void Logout(Word *LoginAccount,ArrayDin *UserItem, ListLinier *WhistList);/*
 void Register(Word *LoginAccount,List *L);/*
     Melakukan register akun, apabila akun sudah ada makan gagal melakukan register.
 */
+
+void storeList(ArrayDin Item);/*
+    Menampilkan isi dari Store
+*/
+
+void storeRequest(Queue *Req, ArrayDin Item);/*
+    Membuat request untuk memasukkan barang kedalam store, memasukkan harga dan nama barang.    
+*/
+
+void storeSupply(Queue *Req, ArrayDin *Item);/*
+    Menambahkan item request kedalam toko.
+*/
+
+void storeRemove(ArrayDin *Item);/*
+    Menghapus Item dari toko.
+*/
 #endif

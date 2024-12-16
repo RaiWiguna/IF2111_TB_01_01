@@ -32,8 +32,19 @@ int main(){
     // Login(&LoginAccount,Account);
     CreateUserItem(file,&UserItem,LoginAccount);
     CreateUserWhislist(file,&Whistlist,LoginAccount);
-    PrintInfoListLin(Whistlist);
-    CetakArrayDin(UserItem);
+    // PrintInfoListLin(Whistlist);
+    // CetakArrayDin(UserItem);
+
+    // storeList(Item);
+    // enqueue(&permintaan,"ak47");
+    // enqueue(&permintaan,"km45");
+    // displayQueue(permintaan);
+    // storeRequest(&permintaan,Item);
+    // storeRequest(&permintaan,Item);
+    // storeSupply(&permintaan, &Item);
+    // displayQueue(permintaan);
+    CetakArrayDin(Item);
+    storeRemove(&Item);
 
     // Logout(&LoginAccount,&UserItem,&Whistlist);
     // Register(&LoginAccount,&Account);

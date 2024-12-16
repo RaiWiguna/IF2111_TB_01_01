@@ -26,19 +26,18 @@ int length(Queue q){
   }
 }
 
-void enqueue(Queue *q, ElType val){
+void enqueue(Queue *q, Word val){
   if(isEmpty(*q)){
     IDX_TAIL(*q) = 0;
     IDX_HEAD(*q) = 0;
   } else{
     IDX_TAIL(*q) = (IDX_TAIL(*q) + 1) % CAPACITY;
   }
-  TAIL(*q) = val;
+  StrcpyToWord(&TAIL(*q),val.TabWord);
 }
 
-void dequeue(Queue *q, ElType *val){
-
-  *val = HEAD(*q);
+void dequeue(Queue *q, Word *val){
+  StrcpyToWord(val,HEAD(*q).TabWord);
 
   if(IDX_HEAD(*q) == IDX_TAIL(*q)){
     IDX_HEAD(*q) = IDX_UNDEF;
@@ -70,29 +69,32 @@ void displayQueue (Queue q){
 }
 
 // Boolean
-boolean IsInQueue(Queue *q, string input) {
-    string temp;
+boolean IsInQueue(Queue q, Word input) {
+    // Kamus Lokal
+    Word temp;
     Queue tempQueue;
+
+    // Algoritma
     CreateQueue(&tempQueue);
     boolean found = false;
 
-    if (isEmpty(*q)) {
+    if (isEmpty(q)) {
         return false;
     }
 
     // Proses pengecekan dan simpan salinan elemen dalam tempQueue
-    while (!isEmpty(*q)) {
-        dequeue(q, &temp);
+    while (!isEmpty(q)) {
+        dequeue(&q, &temp);
         enqueue(&tempQueue, temp);  // Salin elemen ke tempQueue
     }
 
     // Proses pengecekan dan kembalikan elemen ke antrian asli
     while (!isEmpty(tempQueue)) {
         dequeue(&tempQueue, &temp);
-        if (IsSame(temp, input)) {
+        if (IsSame(temp.TabWord, input.TabWord)) {
             found = true;
         }
-        enqueue(q, temp);  // Mengembalikan elemen ke antrian asli dengan aman
+        enqueue(&q, temp);  // Mengembalikan elemen ke antrian asli dengan aman
     }
 
     return found;
