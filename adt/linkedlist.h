@@ -42,5 +42,6 @@ void DeleteLastL(LinkedList *L, Address *P);
 Address Search(LinkedList L, ElementType X);
 void PrintListForward(LinkedList L);
 void PrintListBackward(LinkedList L);
+Address SearchList(LinkedList L, char *name);
 
 #endif

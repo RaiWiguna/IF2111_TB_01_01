@@ -126,3 +126,14 @@ void PrintListBackward(LinkedList L) {
     }
     printf("]\n");
 }
+
+Address SearchList(LinkedList L, char *name) {
+    Address P = First(L);
+    while (P != NIL) {
+        if (strcmp(Info(P).name, name) == 0) {
+            return P;
+        }
+        P = Next(P);
+    }
+    return NIL;
+}
