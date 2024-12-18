@@ -43,5 +43,7 @@ Address Search(LinkedList L, ElementType X);
 void PrintListForward(LinkedList L);
 void PrintListBackward(LinkedList L);
 Address SearchList(LinkedList L, char *name);
+void InsertLast(LinkedList *L, ElementType X);
+void DeleteNode(LinkedList *L, Address P);
 
 #endif

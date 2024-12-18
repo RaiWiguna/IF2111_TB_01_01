@@ -137,3 +137,33 @@ Address SearchList(LinkedList L, char *name) {
     }
     return NIL;
 }
+
+void InsertLast(LinkedList *L, ElementType X) {
+    Address P = Allocate(X);
+    if (P != NIL) {
+        if (IsListEmpty(*L)) {
+            First(*L) = P;
+            Last(*L) = P;
+        } else {
+            Prev(P) = Last(*L);
+            Next(Last(*L)) = P;
+            Last(*L) = P;
+        }
+    }
+}
+
+void DeleteNode(LinkedList *L, Address P) {
+    if (P == NIL) return;
+
+    if (P == First(*L)) {
+        First(*L) = Next(P);
+        if (First(*L) != NIL) Prev(First(*L)) = NIL;
+    } else if (P == Last(*L)) {
+        Last(*L) = Prev(P);
+        if (Last(*L) != NIL) Next(Last(*L)) = NIL;
+    } else {
+        Next(Prev(P)) = Next(P);
+        Prev(Next(P)) = Prev(P);
+    }
+    free(P);
+}
