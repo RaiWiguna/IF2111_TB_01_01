@@ -31,5 +31,6 @@ void InsertMap(Map *M, keytype k, valuetype v);
 void DeleteMap(Map *M, keytype k);
 boolean IsMemberMap(Map M, keytype k);
 int idxMap(Map M, keytype k);
+int SearchMap(Map M, char *key);
 
 #endif

@@ -56,3 +56,12 @@ int idxMap(Map M, keytype k) {
     }
     return -1;
 }
+
+int SearchMap(Map M, char *key) {
+    for (int i = 0; i < M.Count; i++) {
+        if (strcmp(M.Elements[i].Key, key) == 0) {  // Gunakan strcmp
+            return i;
+        }
+    }
+    return Undefined;
+}
