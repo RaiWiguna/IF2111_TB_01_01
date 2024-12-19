@@ -1,14 +1,22 @@
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
 
-#include <stdbool.h> // Untuk tipe boolean
-#include <stdlib.h>  // Untuk malloc dan free
-#include <string.h>  // Untuk manipulasi string
+#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
 
 #define NIL NULL
 
-typedef char* ElementType; // Elemen berupa string
+// Struktur Item
+typedef struct {
+    char name[50];
+    int quantity;
+} Item;
+
+typedef Item ElementType;
+
 typedef struct Node *Address;
+
 typedef struct Node {
     ElementType info;
     Address next;
@@ -20,28 +28,16 @@ typedef struct {
     Address last;
 } LinkedList;
 
-// Macro untuk mempermudah akses
-#define InfoL(P) (P)->info
-#define NextL(P) (P)->next
-#define PrevL(P) (P)->prev
-#define FirstL(L) ((L).first)
-#define LastL(L) ((L).last)
+// Makro akses
+#define Info(P) (P)->info
+#define Next(P) (P)->next
+#define Prev(P) (P)->prev
+#define First(L) ((L).first)
+#define Last(L) ((L).last)
 
-// Prototipe fungsi
+// Fungsi prototipe
 void CreateList(LinkedList *L);
 bool IsListEmpty(LinkedList L);
-
-Address Allocate(ElementType X);
-void Deallocate(Address P);
-
-void InsertFirstL(LinkedList *L, Address P);
-void InsertLastL(LinkedList *L, Address P);
-void DeleteFirstL(LinkedList *L, Address *P);
-void DeleteLastL(LinkedList *L, Address *P);
-
-Address Search(LinkedList L, ElementType X);
-void PrintListForward(LinkedList L);
-void PrintListBackward(LinkedList L);
 Address SearchList(LinkedList L, char *name);
 void InsertLast(LinkedList *L, ElementType X);
 void DeleteNode(LinkedList *L, Address P);
