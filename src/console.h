@@ -19,7 +19,7 @@ void Load(FILE **file);/*
     Melakukan Load File, menyimpan path dah membuka file.
 */
 
-void Login(Word *LoginAccount,List L);/*
+void Login(Word *LoginAccount,List L, int *Money);/*
     Melakukan Login, menyimpan username kedalam main untuk tahap melakukan load file dari akun.
 */
 
@@ -46,4 +46,18 @@ void storeSupply(Queue *Req, ArrayDin *Item);/*
 void storeRemove(ArrayDin *Item);/*
     Menghapus Item dari toko.
 */
+
+void wishlistAdd(ListLinier *L,ArrayDin Item);/*
+    Menambahkan Item kedalam whislist, memastikan sudah ada item pada file baru menambahkan kedalam wishlist.
+*/
+
+void wishlistSwap(ListLinier *L, int i, int j);
+
+void wishlistRemoveNumber(ListLinier *L, int index);
+
+void wishlistRemove(ListLinier *L);
+
+void wishlistClear(ListLinier *L);
+
+void wishlistShow(ListLinier L);
 #endif

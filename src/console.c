@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+
 #include "console.h"
 
 void Start(FILE **file,ArrayDin *Item){
@@ -27,7 +29,7 @@ void Load(FILE **file){
     }
 }
 
-void Login(Word *LoginAccount,List L){
+void Login(Word *LoginAccount,List L, int *Money){
     // Kamus Lokal
     Word Username,Password;
     boolean Condition;
@@ -63,6 +65,7 @@ void Login(Word *LoginAccount,List L){
             }
             else{
                 StrcpyToWord(LoginAccount,Username.TabWord);
+                *Money = (L.Account[i].money);
                 printf("Login ke akun %s berhasil.\n",Username);
             }
         }
@@ -187,5 +190,118 @@ void storeRemove(ArrayDin *Item){
     }
     else{
         printf("Toko tidak menjual %s.\n",input.TabWord);
+    }
+}
+
+void wishlistAdd(ListLinier *L, ArrayDin Item) {
+    // Kamus Lokal
+    Word item;
+
+    // Algoritma
+    printf("Masukkan nama barang: ");
+    STARTWORD();
+    StrcpyToWord(&item,CurrentWord.TabWord);
+
+    address_list temp = First(*L);
+
+    // Cari apakah barang sudah ada di wishlist
+    if(!IsInListLin(*L,CurrentWord.TabWord)){
+        if(IsInArrDin(Item,CurrentWord.TabWord)){
+            InsVLastListLin(L,CurrentWord.TabWord);
+            printf("Berhasil menambahkan %s ke wishlist!\n",CurrentWord.TabWord);
+        }
+        else{
+            printf("Tidak ada barang dengan nama %s!\n",CurrentWord.TabWord);
+        }
+    }
+    else{
+        printf("%s sudah ada di wishlist!\n",CurrentWord.TabWord);
+    }
+}
+
+void wishlistSwap(ListLinier *L, int i, int j) {
+    // Kamus Lokal
+    int bigger,smaller;
+    address_list Pi,Pj;
+    Word Temp1, Temp2;
+    int index = 0;
+
+    // Algoritma
+    if (i == j) {
+        printf("Gagal menukar posisi, posisi ke-%d dan ke-%d adalah sama.\n", i, j);
+        return;
+    }
+
+    // Cari posisi/alamat dari yang indin ditukar
+    Pi = SearchListLinIdx(*L,i);
+    Pj = SearchListLinIdx(*L,j);
+
+    if (Pi == NilList || Pj == NilList) {
+        printf("Gagal menukar posisi! Salah satu indeks tidak valid.\n");
+    } else {
+        StrcpyToWord(&Temp1,Info(Pi));
+        StrcpyToWord(&Temp2,Info(Pj));
+        StrcpyToString(Info(Pi),&Temp2);
+        StrcpyToString(Info(Pj),&Temp1);
+        printf("Berhasil menukar posisi %s dengan %s pada wishlist!\n", Info(Pi), Info(Pj));
+    }
+}
+
+void wishlistRemoveNumber(ListLinier *L, int index) {
+    // Kamus Lokal
+    address_list p;
+    Word Temp;
+    int currentIndex = 1;
+
+    // Algoritma
+    if (IsEmptyListLin(*L)) {
+        printf("Penghapusan barang WISHLIST gagal dilakukan, WISHLIST kosong!\n");
+        return;
+    }
+    // Cari elemen di posisi index
+    p = SearchListLinIdx(*L,index);
+
+    if (p == NilList) {
+        printf("Penghapusan barang WISHLIST gagal dilakukan, Barang ke-%d tidak ada di WISHLIST!\n", index);
+    } else {
+        StrcpyToWord(&Temp,Info(p));
+        DelPListLin(L,Temp.TabWord);
+    }
+}
+
+void wishlistRemove(ListLinier *L) {
+    // Kamus Lokal
+    Word item;
+    address_list temp;
+
+    // Algoritma
+    printf("Masukkan nama barang yang akan dihapus: ");
+    STARTWORD();
+    StrcpyToWord(&item,CurrentWord.TabWord);
+    // Cari Barang
+    temp = SearchListLin(*L,item.TabWord);
+    if(temp == NilList){
+        printf("Penghapusan barang WISHLIST gagal dilakukan, %s tidak ada di WISHLIST!\n", item);
+    }
+    else{
+        DelPListLin(L,item.TabWord);
+        printf("%s berhasil dihapus dari WISHLIST!\n",item.TabWord);
+    }
+}
+
+void wishlistClear(ListLinier *L) {
+    address_list P;
+    while (!IsEmptyListLin(*L)) {
+        DelFirstListLin(L, &P);
+        DealokasiListLin(&P);
+    }
+    printf("Wishlist telah dikosongkan.\n");
+}
+
+void wishlistShow(ListLinier L) {
+    if (IsEmptyListLin(L)) {
+        printf("Wishlist kamu kosong!\n");
+    } else {
+        PrintInfoListLin(L);
     }
 }

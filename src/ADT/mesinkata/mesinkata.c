@@ -216,7 +216,6 @@ void StrcpyToWord(Word *dest, const char *src) {
 void StrcpyToString(string dest, const Word *src) {
     int i = 0;
     while (i < src->Length && i < NMax - 1) { // Pastikan tidak melebihi batas
-        printf("%d",i);
         dest[i] = src->TabWord[i];
         i++;
     }

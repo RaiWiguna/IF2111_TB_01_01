@@ -1,7 +1,8 @@
-#include "listlinier.h"
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "listlinier.h"
+#include "../ArrayDinamis/ArrayDinamis.h"
 boolean IsEmptyListLin(ListLinier L) {
     return (First(L) == NilList);
 }
@@ -29,7 +30,7 @@ void DealokasiListLin(address_list *P) {
 address_list SearchListLin(ListLinier L, infotypelist X) {
     address_list P = First(L);
     while (P != NilList) {
-        if (IsSame(Info(P), X) == 0) {
+        if (IsSame(Info(P), X)) {
             return P;
         }
         P = Next(P);
@@ -37,6 +38,21 @@ address_list SearchListLin(ListLinier L, infotypelist X) {
     return NilList;
 }
 
+address_list SearchListLinIdx(ListLinier L, int index){
+    // Kamus Lokal
+    address_list P = First(L);
+    int i=0;
+
+    // Algoritma
+    while (P != NilList && i<index) {
+        if(i == (index-1)){
+            return P;
+        }
+        P = Next(P);
+        i++;
+    }
+    return NilList;
+}
 void InsVFirstListLin(ListLinier *L, infotypelist X) {
     address_list P = AlokasiListLin(X);
     if (P != NilList) {
@@ -95,12 +111,12 @@ void DelFirstListLin(ListLinier *L, address_list *P) {
 
 void DelPListLin(ListLinier *L, infotypelist X) {
     address_list P = First(*L);
-    if (IsSame(Info(P), X) == 0) {
+    if (IsSame(Info(P), X)) {
         DelFirstListLin(L, &P);
         DealokasiListLin(&P);
     } else {
         address_list Prec = NilList;
-        while (P != NilList && IsSame(Info(P), X) != 0) {
+        while (P != NilList && !IsSame(Info(P), X)) {
             Prec = P;
             P = Next(P);
         }
@@ -135,7 +151,7 @@ void DelAfterListLin(ListLinier *L, address_list *Pdel, address_list Prec) {
 void PrintInfoListLin(ListLinier L) {
     address_list P = First(L);
     int id=1;
-    printf("Berikut adalah isi wishlist: \n");
+    printf("Berikut adalah isi wishlist-mu: \n");
     while (P != NilList) {
         printf("%d. %s\n", id,Info(P));
         id++;
@@ -246,3 +262,178 @@ void Konkat1ListLin(ListLinier *L1, ListLinier *L2, ListLinier *L3) {
     First(*L1) = NilList;
     First(*L2) = NilList;
 }
+
+boolean IsInListLin(ListLinier L,infotypelist X){
+    // Kamus Lokal
+    boolean Found = false;
+
+    // Algoritma
+    address_list p = First(L);
+    while (p != NilList && !Found) {
+        if(IsSame(Info(p),X)){
+            Found = true;
+        }
+        p = Next(p);
+    }
+    return Found;
+}
+
+// void wishlistAdd(ListLinier *L, ArrayDin Item) {
+//     // Kamus Lokal
+//     Word item;
+
+//     // Algoritma
+//     printf("Masukkan nama barang: ");
+//     STARTWORD();
+//     StrcpyToWord(&item,CurrentWord.TabWord);
+
+//     address_list temp = First(*L);
+
+//     // Cari apakah barang sudah ada di wishlist
+//     if(!IsInListLin(*L,CurrentWord.TabWord)){
+//         if(IsInArrDin(Item,CurrentWord.TabWord)){
+//             InsVLastListLin(L,CurrentWord.TabWord);
+//             printf("Berhasil menambahkan %s ke wishlist!\n",CurrentWord.TabWord);
+//         }
+//         else{
+//             printf("Tidak ada barang dengan nama %s!\n",CurrentWord.TabWord);
+//         }
+//     }
+//     else{
+//         printf("%s sudah ada di wishlist!\n",CurrentWord.TabWord);
+//     }
+// }
+
+// void wishlistSwap(LinkedList *L, int i, int j) {
+//     if (i == j) {
+//         printf("Gagal menukar posisi, posisi ke-%d dan ke-%d adalah sama.\n", i, j);
+//         return;
+//     }
+
+//     Address Pi = FirstL(*L), Pj = FirstL(*L);
+//     int index = 1;
+
+//     // Cari elemen ke-i dan ke-j
+//     while (Pi != NIL && index < i) {
+//         Pi = NextL(Pi);
+//         index++;
+//     }
+//     index = 1;
+//     while (Pj != NIL && index < j) {
+//         Pj = NextL(Pj);
+//         index++;
+//     }
+
+//     if (Pi == NIL || Pj == NIL) {
+//         printf("Gagal menukar posisi! Salah satu indeks tidak valid.\n");
+//     } else {
+//         ElementType temp = strdup(InfoL(Pi));
+//         free(InfoL(Pi));
+//         InfoL(Pi) = strdup(InfoL(Pj));
+//         free(InfoL(Pj));
+//         InfoL(Pj) = temp;
+
+//         printf("Berhasil menukar posisi %s dengan %s pada wishlist!\n", InfoL(Pi), InfoL(Pj));
+//     }
+// }
+
+// void wishlistRemoveNumber(LinkedList *L, int index) {
+//     if (IsListEmpty(*L)) {
+//         printf("Penghapusan barang WISHLIST gagal dilakukan, WISHLIST kosong!\n");
+//         return;
+//     }
+
+//     Address P = FirstL(*L);
+//     int currentIndex = 1;
+
+//     // Cari elemen di posisi index
+//     while (P != NIL && currentIndex < index) {
+//         P = NextL(P);
+//         currentIndex++;
+//     }
+
+//     if (P == NIL) {
+//         printf("Penghapusan barang WISHLIST gagal dilakukan, Barang ke-%d tidak ada di WISHLIST!\n", index);
+//     } else {
+//         printf("Berhasil menghapus barang posisi ke-%d dari wishlist!\n", index);
+//         if (P == FirstL(*L)) {
+//             DeleteFirstL(L, &P);
+//         } else if (P == LastL(*L)) {
+//             DeleteLastL(L, &P);
+//         } else {
+//             NextL(PrevL(P)) = NextL(P);
+//             PrevL(NextL(P)) = PrevL(P);
+//         }
+//         Deallocate(P);
+//     }
+// }
+
+// void wishlistRemove(LinkedList *L) {
+//     char* item;
+
+//     printf("Masukkan nama barang yang akan dihapus: ");
+//     STARTWORD();
+//     item = CurrentWord.TabWord;
+
+//     Address temp = FirstL(*L);
+
+//     // Cari elemen berdasarkan item
+//     while (temp != NIL) {
+//         if (strcmp_custom(InfoL(temp), item) == 0) {
+//             // Hapus elemen dari list
+//             if (temp == FirstL(*L)) {
+//                 DeleteFirstL(L, &temp);
+//             } else if (temp == LastL(*L)) {
+//                 DeleteLastL(L, &temp);
+//             } else {
+//                 NextL(PrevL(temp)) = NextL(temp);
+//                 PrevL(NextL(temp)) = PrevL(temp);
+//             }
+//             printf("%s berhasil dihapus dari WISHLIST!\n", item);
+//             Deallocate(temp); // Dealokasi memori
+//             return;
+//         }
+//         temp = NextL(temp);
+//     }
+
+//     // Jika barang tidak ditemukan
+//     printf("Penghapusan barang WISHLIST gagal dilakukan, %s tidak ada di WISHLIST!\n", item);
+// }
+
+// void wishlistClear(LinkedList *L) {
+//     Address P;
+//     while (!IsListEmpty(*L)) {
+//         DeleteFirstL(L, &P);
+//         Deallocate(P);
+//     }
+//     printf("Wishlist telah dikosongkan.\n");
+// }
+
+// void wishlistShow(LinkedList L) {
+//     if (IsListEmpty(L)) {
+//         printf("Wishlist kamu kosong!\n");
+//     } else {
+//         printf("Berikut adalah isi wishlist-mu:\n");
+//         Address P = FirstL(L);
+//         int index = 1;
+//         while (P != NIL) {
+//             printf("%d. %s\n", index, InfoL(P));
+//             P = NextL(P);
+//             index++;
+//         }
+//     }
+// }
+
+// int main(){
+//     // Kamus Lokal
+//     ListLinier L;
+
+//     // Algoritma
+//     CreateEmptyListLin(&L);
+//     InsVLastListLin(&L,"mesinkata");
+//     PrintInfoListLin(L);
+
+//     // Test Searh 
+//     printf("%d",IsInListLin(L,"mesinkata"));
+//     SearchListLinIdx(L,1);
+// }

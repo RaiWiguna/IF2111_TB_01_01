@@ -7,6 +7,7 @@
 #define listlinier_H
 
 #include "../mesinkata/mesinkata.h"
+#include "../ArrayDinamis/ArrayDinamis.h"
 
 #define NilList NULL
 
@@ -31,6 +32,7 @@ void CreateEmptyListLin(ListLinier *L);
 address_list AlokasiListLin(infotypelist X);
 void DealokasiListLin(address_list *P);
 address_list SearchListLin(ListLinier L, infotypelist X);
+address_list SearchListLinIdx (ListLinier L, int index);
 void InsVFirstListLin(ListLinier *L, infotypelist X);
 void InsVLastListLin(ListLinier *L, infotypelist X);
 void DelVFirstListLin(ListLinier *L, infotypelist *X);
@@ -51,4 +53,7 @@ void PrintInfoListLin(ListLinier L);
 // float AverageListLin(ListLinier L);
 void InversListListLin(ListLinier *L);
 void Konkat1ListLin(ListLinier *L1, ListLinier *L2, ListLinier *L3);
+
+boolean IsInListLin(ListLinier L,infotypelist X); 
+
 #endif
