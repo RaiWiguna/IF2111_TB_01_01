@@ -3,6 +3,7 @@
 #include <string.h>
 #include "linkedlist.h"
 #include "map.h"
+#include "string.h"
 
 // Inisialisasi toko dan keranjang
 Map toko;
@@ -41,7 +42,7 @@ void cartAdd(char *namaBarang, int kuantitas) {
     } else {
         // Jika barang belum ada, tambahkan node baru
         Item newItem;
-        strcpy(newItem.name, namaBarang);
+        strcpy_custom(newItem.name, namaBarang);
         newItem.quantity = kuantitas;
         InsertLast(&keranjang, newItem);
     }
@@ -93,7 +94,8 @@ void displayCart() {
     }
 }
 
-int main() {
+/*  INI KALO MAU DICOBA 
+int main() {                     
     initSystem();
     char command[100];
 
@@ -123,4 +125,4 @@ int main() {
     }
 
     return 0;
-}
+} */
