@@ -1,7 +1,7 @@
 #include "menu.h"
 
 void Welcomemenu(){
-    printf("\n");
+    system("cls");
     printf("                                    W  E  L  C  O  M  E     T  O                                    \n");
     printf("     _ __                                               ___    ,---.                  ,--.--------. \n");
     printf("  .-`.' ,`.  .--.-. .-.-. .-.,.---.   .-.,.---.  .-._ .'=.'\\\ .--.'  \\\      .-.,.---. /==/,  -   , -\\\n");
@@ -20,7 +20,7 @@ void Welcomemenu(){
     printf("\n");
 
     time_t start_time = time(NULL);
-    while (difftime(time(NULL), start_time) < 3) {
+    while (difftime(time(NULL), start_time) < 2) {
     }
     system("cls");
 

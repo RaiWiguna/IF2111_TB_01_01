@@ -97,14 +97,14 @@ boolean IsIdxEff (List L, IdxType i) {
 // 	Set(L, i, X);
 // }
 
-void InsertLastList(List *L, string money, string Acc,string Pass ) {
+void InsertLastList(List *L, string Acc, string Pass,string Money ) {
     // Kamus Lokal
 	int last = Length(*L);
 
 	// Algoritma
 	copyString((*L).Account[last].name,Acc);
 	copyString((*L).Account[last].password,Pass);
-	(*L).Account[last].money = atoi(money);
+	(*L).Account[last].money = atoi(Money);
 
 	(*L).Neff++;
 }

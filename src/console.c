@@ -110,7 +110,6 @@ void Register(Word *LoginAccount, List *L){
             Username.TabWord,Username.TabWord);
         }
         else{
-            StrcpyToWord(LoginAccount, Username.TabWord);
             InsertLastList(L,Username.TabWord,Password.TabWord,"0");
             printf("Akun dengan username %s telah berhasil dibuat. Silahkan LOGIN untuk melanjutkan.\n",
             Username.TabWord);

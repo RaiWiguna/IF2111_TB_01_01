@@ -18,7 +18,6 @@ int main(){
     Word LoginAccount;
     int Money = 50;
 
-    boolean login;
     CreateQueue(&permintaan);
     MakeArrayDin(&Item);
     MakeArrayDin(&UserItem);
@@ -26,25 +25,25 @@ int main(){
 
     // Algoritma
     StrcpyToWord(&LoginAccount,"admin");
-    // Start(&file,&Item);
+    Start(&file,&Item);
     // Load(&file);
     ReadFile(file,&Item,&UserItem,&Account);
-    // CetakArrayDin(Item);
+    CetakArrayDin(Item);
     // Login(&LoginAccount,Account,&Money);
     
-    CreateUserItem(file,&UserItem,LoginAccount);
-    CreateUserWhislist(file,&Whistlist,LoginAccount);
-    // wishlistAdd(&Whistlist,Item);
-    PrintInfoListLin(Whistlist);
-    int i =1,j=2;
-    wishlistSwap(&Whistlist,i,j);
-    PrintInfoListLin(Whistlist);
-    wishlistRemoveNumber(&Whistlist,j);
-    PrintInfoListLin(Whistlist);
+    // CreateUserItem(file,&UserItem,LoginAccount);
+    // CreateUserWhislist(file,&Whistlist,LoginAccount);
+    // // wishlistAdd(&Whistlist,Item);
+    // PrintInfoListLin(Whistlist);
+    // int i =1,j=2;
+    // wishlistSwap(&Whistlist,i,j);
+    // PrintInfoListLin(Whistlist);
+    // wishlistRemoveNumber(&Whistlist,j);
+    // PrintInfoListLin(Whistlist);
     // wishlistRemove(&Whistlist);
-    PrintInfoListLin(Whistlist);
-    wishlistClear(&Whistlist);
-    wishlistShow(Whistlist);
+    // PrintInfoListLin(Whistlist);
+    // wishlistClear(&Whistlist);
+    // wishlistShow(Whistlist);
     // CetakArrayDin(UserItem);
 
     // storeList(Item);
