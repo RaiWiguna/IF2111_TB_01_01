@@ -22,10 +22,10 @@ typedef struct {
   char name[MAX_LEN];
   char password[MAX_LEN];
   int money;
-} User;
+} UserList;
 
 typedef struct {
-	User Account[MaxEl];  /* Memori tempat penyimpanan elemen (container) */
+	UserList Account[MaxEl];  /* Memori tempat penyimpanan elemen (container) */
     int Neff;
 } List;
 

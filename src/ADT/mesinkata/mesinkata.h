@@ -97,6 +97,14 @@ void copyString(char *dest, const char *src); /*
    Melakukan copy string untuk list statis
 */
 
+void copyWordExact(Word *dest, Word *src,int min,int max); /*
+   Melakukan copy antar word, dengan posisi exact yang ingin dicopy.
+*/
+
+void copyWordExactWithBlank(Word *dest1,Word *dest2, Word *src,int min,int max); /*
+   Melakukan copy antar word, dengan posisi exact yang ingin dicopy yang mengabaikan blank dan mengubah menjadi 2 word.
+*/
+
 // Processing
 int strLength(const char *str); /*
    Menghitung panjang dari sebuah kata
@@ -105,6 +113,14 @@ int strLength(const char *str); /*
 // Boolean
 boolean IsSame(const char *str1,const char *str2);/*
    Melakukan komparasi apakah kedua kata sama atau tidak
+*/
+boolean IsSamePartial(const char *str1,const char *str2);/*
+   Melakukan komparasi sebagian dari kata dengan marker yang diberikan.
+*/
+
+// Integer
+int Skip_Char(const char *str1,const char *str2);/*
+   Membalikkan posisi character, setelah character terahir sama.
 */
 
 #endif

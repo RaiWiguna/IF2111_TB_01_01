@@ -60,4 +60,12 @@ void wishlistRemove(ListLinier *L);
 void wishlistClear(ListLinier *L);
 
 void wishlistShow(ListLinier L);
+
+// Console Tambahan
+void HandleWrongInput();/*
+    Console ini diperlukan, karena pada beberapa command yang diperiksa menggunakan IsSamePartial yang
+    membuat adanya penundaan apakah input telah benar atau belum. Hal ini berkaitan dengan sistem kerja 
+    IsSamePartial yang memeriksa hanya setengah "sesuai marker yang diberikan" terhadap input, lalu mengolahnya kembali ke format lain.
+    Apabila ternyata input akhir tidak sesuai, barulah kita memanggil HandleWrongInput yang membuat seakan-akan program memang berjalan menuju bagian else.
+*/
 #endif

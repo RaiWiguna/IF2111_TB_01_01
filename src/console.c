@@ -3,6 +3,7 @@
 
 #include "console.h"
 
+//Console Wajib
 void Start(FILE **file,ArrayDin *Item){
     // Algoritma
     *file = fopen("../save/default.txt","r");
@@ -123,7 +124,7 @@ void storeList(ArrayDin Item){
     }
     else{
         printf("List barang yang ada di toko :\n");
-        CetakNameArrayDin(Item);
+        CetakArrayDin(Item);
     }
 }
 
@@ -139,6 +140,7 @@ void storeRequest(Queue *Req, ArrayDin Item) {
     // Pastikan item tidak ada di antrian dan toko
     if (!IsInQueue(*Req, input) && !IsInArrDin(Item, input.TabWord)) {
         enqueue(Req, input);  // Enqueue item jika tidak ada duplikasi
+        printf("Berhasil melakukan request %s, Terimakasii.\n",input.TabWord);
     } else if (IsInArrDin(Item, input.TabWord)) {
         printf("Barang dengan nama yang sama sudah ada di toko!\n");
     } else {
@@ -149,26 +151,31 @@ void storeRequest(Queue *Req, ArrayDin Item) {
 void storeSupply(Queue *Req, ArrayDin *Item) {
     Word input,temp,price;
 
-    dequeue(Req, &temp);
-    printf("Apakah kamu ingin menambahkan barang %s: ", temp.TabWord);
-    STARTWORD();  
-    StrcpyToWord(&input, CurrentWord.TabWord);  
-    if (IsSame(input.TabWord, "Terima")) {
-        printf("Harga barang: ");
+    if(isEmpty(*Req)){
+        printf("Request kosong, silahkan melakukan STORE REQUEST terlebih dahulu.\n");
+    }
+    else{
+        dequeue(Req, &temp);
+        printf("Apakah kamu ingin menambahkan barang %s: ", temp.TabWord);
         STARTWORD();  
-        StrcpyToWord(&price, CurrentWord.TabWord);
-        InsertLastArrDin(Item, price.TabWord, temp.TabWord); 
-        printf("%s dengan harga %s telah ditambahkan ke toko.\n", temp.TabWord, price.TabWord);
-    } 
-    else if (IsSame(input.TabWord, "Tunda")) {
-        printf("%s dikembalikan ke antrian.\n", temp);
-        enqueue(Req, temp); 
-    } 
-    else if (IsSame(input.TabWord, "Tolak")) {
-        printf("%s dihapuskan dari antrian.\n", temp);  // Tidak ada tindakan tambahan
-    } 
-    else if (IsSame(input.TabWord, "Purry")) {
-        printf(" < Balik ke menu >\n");
+        StrcpyToWord(&input, CurrentWord.TabWord);  
+        if (IsSame(input.TabWord, "Terima")) {
+            printf("Harga barang: ");
+            STARTWORD();  
+            StrcpyToWord(&price, CurrentWord.TabWord);
+            InsertLastArrDin(Item, price.TabWord, temp.TabWord); 
+            printf("%s dengan harga %s telah ditambahkan ke toko.\n", temp.TabWord, price.TabWord);
+        } 
+        else if (IsSame(input.TabWord, "Tunda")) {
+            printf("%s dikembalikan ke antrian.\n", temp);
+            enqueue(Req, temp); 
+        } 
+        else if (IsSame(input.TabWord, "Tolak")) {
+            printf("%s dihapuskan dari antrian.\n", temp);  // Tidak ada tindakan tambahan
+        } 
+        else if (IsSame(input.TabWord, "Purry")) {
+            printf(" < Balik ke menu >\n");
+        }
     } 
 }
 
@@ -178,17 +185,22 @@ void storeRemove(ArrayDin *Item){
     int index;
     
     // Algoritma
-    printf("Nama barang yang akan dihapus: ");
-    STARTWORD();
-    StrcpyToWord(&input,CurrentWord.TabWord);
-    printf("\n");
-    if(IsInArrDin(*Item,input.TabWord)){
-        index = SearchArrDin(*Item,input.TabWord);
-        DeleteAtArrDin(Item,index);
-        printf("%s telah berhasil dihapus.\n",input.TabWord);
+    if(IsEmpty(*Item)){
+        printf("Toko kosong.\n");
     }
     else{
-        printf("Toko tidak menjual %s.\n",input.TabWord);
+        printf("Nama barang yang akan dihapus: ");
+        STARTWORD();
+        StrcpyToWord(&input,CurrentWord.TabWord);
+        printf("\n");
+        if(IsInArrDin(*Item,input.TabWord)){
+            index = SearchArrDin(*Item,input.TabWord);
+            DeleteAtArrDin(Item,index);
+            printf("%s telah berhasil dihapus.\n",input.TabWord);
+        }
+        else{
+            printf("Toko tidak menjual %s.\n",input.TabWord);
+        }
     }
 }
 
@@ -226,23 +238,28 @@ void wishlistSwap(ListLinier *L, int i, int j) {
     int index = 0;
 
     // Algoritma
-    if (i == j) {
+    if(IsEmptyListLin(*L)){
+        printf("Wishlist Kosong.\n");
+    }
+    else{
+        if (i == j) {
         printf("Gagal menukar posisi, posisi ke-%d dan ke-%d adalah sama.\n", i, j);
         return;
-    }
+        }
 
-    // Cari posisi/alamat dari yang indin ditukar
-    Pi = SearchListLinIdx(*L,i);
-    Pj = SearchListLinIdx(*L,j);
+         // Cari posisi/alamat dari yang indin ditukar
+        Pi = SearchListLinIdx(*L,i);
+        Pj = SearchListLinIdx(*L,j);
 
-    if (Pi == NilList || Pj == NilList) {
-        printf("Gagal menukar posisi! Salah satu indeks tidak valid.\n");
-    } else {
-        StrcpyToWord(&Temp1,Info(Pi));
-        StrcpyToWord(&Temp2,Info(Pj));
-        StrcpyToString(Info(Pi),&Temp2);
-        StrcpyToString(Info(Pj),&Temp1);
-        printf("Berhasil menukar posisi %s dengan %s pada wishlist!\n", Info(Pi), Info(Pj));
+        if (Pi == NilList || Pj == NilList) {
+            printf("Gagal menukar posisi! Salah satu indeks tidak valid.\n");
+        } else {
+            StrcpyToWord(&Temp1,Info(Pi));
+            StrcpyToWord(&Temp2,Info(Pj));
+            StrcpyToString(Info(Pi),&Temp2);
+            StrcpyToString(Info(Pj),&Temp1);
+            printf("Berhasil menukar posisi %s dengan %s pada wishlist!\n", Info(Pi), Info(Pj));
+        }  
     }
 }
 
@@ -265,6 +282,7 @@ void wishlistRemoveNumber(ListLinier *L, int index) {
     } else {
         StrcpyToWord(&Temp,Info(p));
         DelPListLin(L,Temp.TabWord);
+        printf("Penghapusan barang WISHLIST berhasil, Barang ke-%d terhapus.\n",index);
     }
 }
 
@@ -274,6 +292,10 @@ void wishlistRemove(ListLinier *L) {
     address_list temp;
 
     // Algoritma
+    if(IsEmptyListLin(*L)){
+        printf("Whislist kosong.\n");
+        return;
+    }
     printf("Masukkan nama barang yang akan dihapus: ");
     STARTWORD();
     StrcpyToWord(&item,CurrentWord.TabWord);
@@ -303,4 +325,9 @@ void wishlistShow(ListLinier L) {
     } else {
         PrintInfoListLin(L);
     }
+}
+
+//Console Tambahan
+void HandleWrongInput(){
+    printf("Command yang dimasukkan salah, jika bingung ketikkan \"HELP\".\n");
 }

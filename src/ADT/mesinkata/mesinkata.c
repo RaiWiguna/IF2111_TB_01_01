@@ -226,6 +226,36 @@ void copyString(char *dest, const char *src) {
     while ((*dest++ = *src++));
 }
 
+void copyWordExact(Word *dest, Word *src,int min,int max){
+    // Kamus Lokal
+    int j=0;
+    // Algoritma
+    for(int i = min; i<max;i++){
+        ((*dest).TabWord[j] = (*src).TabWord[i]);
+        j++;
+    }
+
+}
+
+void copyWordExactWithBlank(Word *dest1,Word *dest2, Word *src,int min,int max){
+    // Kamus Lokal
+    int j=0,k=0;
+    // Algoritma
+    while ((*src).TabWord[min] != BLANK && min<max){
+        ((*dest1).TabWord[j] = (*src).TabWord[min]);
+        min++;
+        j++;
+    }
+    while((*src).TabWord[min] == BLANK && min<max){
+        min++;
+    }
+    while ((*src).TabWord[min] != BLANK && min<max){
+        ((*dest2).TabWord[k] = (*src).TabWord[min]);
+        min++;
+        k++;
+    }
+}
+
 // Processing
 int strLength(const char *str){
     // Kamus Lokal
@@ -254,4 +284,32 @@ boolean IsSame(const char *str1,const char *str2){
         }
     }
     return true;
+}
+
+boolean IsSamePartial(const char *str1,const char *str2){
+    // Penggunnaan IsSamePartial, input disebelah kiri, marker disebelah kanan.
+    // Kamus Lokal 
+    int i =0;
+    // Algoritma
+    if(strLength(str1)<= strLength(str2)){
+        return false;
+    }
+    else{
+        while(str1[i] != '\0' && str2[i] != '\0'){
+            if(str1[i] != str2[i]){
+                return false;
+            }
+        i++;
+        }
+    }
+    return true;
+}
+
+// Integer
+int Skip_Char(const char *str1,const char *str2){
+    int i=0;
+    while(str1[i] == str2[i]){
+        i++;
+    }
+    return i;
 }

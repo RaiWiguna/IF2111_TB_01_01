@@ -35,7 +35,7 @@ void ReadUser(FILE *file,List *Account,ArrayDin *UserItem){
     n = atoi(CurrentWordStringToInteger.TabWord);
     for(int i=0; i<n ;i++){
         STARTWORD_User(file);
-        InsertLastList(Account,CurrentWord3.TabWord,CurrentWord4.TabWord,CurrentWord5.TabWord);
+        InsertLastList(Account,CurrentWord4.TabWord,CurrentWord5.TabWord,CurrentWord3.TabWord);
         
         STARTWORD_Looping(file);
         loop = atoi(CurrentWordStringToInteger.TabWord);

@@ -28,8 +28,7 @@ void CetakNameArrayDin(ArrayDin array){
 
 void CetakArrayDin(ArrayDin array){
     for(int i=0; i<array.Neff;i++){
-        printf("%s\n",array.elements[i].name);
-        printf("%d harga\n",array.elements[i].price);
+        printf("- %s - Harga: %d\n",array.elements[i].name,array.elements[i].price);
     }
 }
 

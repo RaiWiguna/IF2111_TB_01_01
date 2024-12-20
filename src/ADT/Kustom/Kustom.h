@@ -2,19 +2,15 @@
 #define Kustom
 
 #include <stdio.h>
+#include "../ListLinier/listlinier.h"
 
 #define MAX_LEN 100
 
 typedef struct {
-  char name[MAX_LEN];
-  char password[MAX_LEN];
+  Word name;
+  Word password;
   int money;
+  ListLinier wishlist;
 } User;
-
-typedef struct {
-  char name[MAX_LEN];
-  int price;
-} Item;
-
 
 #endif
