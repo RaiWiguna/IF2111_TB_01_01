@@ -11,11 +11,12 @@
 #include "ADT/Queue/queue.h"
 #include "ADT/ListLinier/listlinier.h"
 #include "ADT/ScanFile/scanfile.h"
+#include "ADT/WorkFunctions/workFunctions.h"
 
 void Start(FILE **file,ArrayDin *Item); /*
     Memulai game dengan membaca default file /file mula mula.
 */
-void Load(FILE **file);/*
+void Load(FILE **file, Word FileName);/*
     Melakukan Load File, menyimpan path dah membuka file.
 */
 
@@ -29,6 +30,10 @@ void Logout(Word *LoginAccount,ArrayDin *UserItem, ListLinier *WhistList);/*
 
 void Register(Word *LoginAccount,List *L);/*
     Melakukan register akun, apabila akun sudah ada makan gagal melakukan register.
+*/
+
+void Work(User *LoginAccount);/*
+    Melakukan kerja, untuk mendapatkan uang.
 */
 
 void storeList(ArrayDin Item);/*

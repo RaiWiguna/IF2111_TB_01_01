@@ -9,9 +9,11 @@
 100 admin alstrukdatkeren5
 1
 15 AK47
-2
+4
 Ayam Goreng Crisbar
 AK47
+Ayam
+Sapi
 200 User1 akukamu
 2
 30 AKM

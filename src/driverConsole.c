@@ -15,8 +15,8 @@ int main(){
     Queue permintaan; 
     List Account = MakeList();
     ListLinier Whistlist;
-    Word LoginAccount;
-    int Money = 50;
+    User LoginAccount;
+    LoginAccount.money = 50;
 
     CreateQueue(&permintaan);
     MakeArrayDin(&Item);
@@ -24,7 +24,7 @@ int main(){
     CreateEmptyListLin(&Whistlist);
 
     // Algoritma
-    StrcpyToWord(&LoginAccount,"admin");
+    // StrcpyToWord(&LoginAccount.name,"admin");
     Start(&file,&Item);
     // Load(&file);
     ReadFile(file,&Item,&UserItem,&Account);
@@ -77,4 +77,6 @@ int main(){
     //displayQueue(permintaan);
     //storeRemove(&Item);
     // CetakArrayDin(Item);
+
+    Work(&LoginAccount);
 }

@@ -13,17 +13,13 @@ void Start(FILE **file,ArrayDin *Item){
     }   
 
 }
-void Load(FILE **file){
+void Load(FILE **file, Word FileName){
     // Kamus Lokal
     Word tempWord;
     char filePath[200];
 
-    // Algoritma Meminta Input
-    printf(">> LOAD ");
-    STARTWORD();
-
     // membaca file
-    sprintf(filePath,"../save/%s",CurrentWord.TabWord);
+    sprintf(filePath,"../save/%s",FileName.TabWord);
     *file = fopen(filePath, "r");
     if(*file != NULL){
         printf("File %s berhasil di load.\n",CurrentWord.TabWord);
@@ -116,6 +112,50 @@ void Register(Word *LoginAccount, List *L){
             Username.TabWord);
         }
     }
+}
+
+void Work(User *LoginAccount) {
+
+    // Menampilkan daftar pekerjaan
+    printf("Daftar Pekerjaan:\n");
+    for(int i = 0; i < jobCount; i++) {
+        printf("%d. %s (pendapatan=%d, durasi=%ds)\n", i+1, jobList[i].name, jobList[i].income, jobList[i].duration);
+    }
+
+    // Input untuk memilih pekerjaan
+    printf("\nMasukkan pekerjaan yang dipilih: ");
+    STARTWORD();
+
+    // Membuat variabel untuk menentukan mana perkerjaan yang dipilih
+    int angkapilihan;
+    if(IsSame(CurrentWord.TabWord,"Evil Lab Assistant")) {
+        angkapilihan = 0;
+    } else if (IsSame(CurrentWord.TabWord,"OWCA Hiring Manager"))
+    {
+        angkapilihan = 1;
+    } else if (IsSame(CurrentWord.TabWord,"Cikapundunginator Caretaker"))
+    {
+        angkapilihan = 2;
+    } else if (IsSame(CurrentWord.TabWord, "Mewing Specialist"))
+    {
+        angkapilihan = 3;
+    } else if (IsSame(CurrentWord.TabWord,"Inator Connoisseur"))
+    {
+        angkapilihan = 4;
+    }
+
+    printf("\nAnda sedang bekerja sebagai %s... harap tunggu.\n", jobList[angkapilihan].name);
+
+    // Pekerjaan diproses
+    for (int i = 0; i < jobList[angkapilihan].duration; i++) {
+        sleep(1);
+    }
+
+    // Pekerjaan selesai
+    printf("\nPekerjaan selesai! +%d rupiah telah ditambahkan ke akun Anda.\n", jobList[angkapilihan].income);
+
+    // Income pekerjaan dimasukkan kedalam user money
+    (*LoginAccount).money += jobList[angkapilihan].income;
 }
 
 void storeList(ArrayDin Item){

@@ -38,18 +38,23 @@ int main(){
             Start(&file,&Item);
             LoadFile = true;
         }
-        else if(IsSame(Input.TabWord,"LOAD")){
-            Load(&file);
+        else if(IsSamePartial(Input.TabWord,"LOAD ")){
+            // Kamus Lokal
+            Word FileName;
+            int min = Skip_Char(Input.TabWord,"LOAD ");
+            int max = Input.Length;
+            char buffer[100];
+
+            //Proses Inisialiasi Input
+            copyWordExact(&FileName,&Input,min,max); 
+
+            Load(&file,FileName);
             ReadFile(file,&Item,&UserItem,&Account);
             LoadFile = true;
         }
         else if(IsSame(Input.TabWord,"HELP")){
 
         }
-        else if(IsSame(Input.TabWord,"QUIT")){
-            quit = true;
-        }
-
         else if(IsSame(Input.TabWord,"LOGIN")){
             if(!LoadFile){
                 printf("Lakukan LOAD/START terlebih dahulu\n");
@@ -202,6 +207,9 @@ int main(){
             else{
                 wishlistShow(LoginAccount.wishlist);
             }
+        }
+        else if(IsSame(Input.TabWord,"QUIT")){
+            quit = true;
         }
         else{
             printf("Command yang dimasukkan salah, jika bingung ketikkan \"HELP\".\n");
