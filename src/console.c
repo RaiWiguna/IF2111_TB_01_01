@@ -127,7 +127,7 @@ void Work(User *LoginAccount) {
     STARTWORD();
 
     // Membuat variabel untuk menentukan mana perkerjaan yang dipilih
-    int angkapilihan;
+    int angkapilihan = atoi(CurrentWord.TabWord);
     if(IsSame(CurrentWord.TabWord,"Evil Lab Assistant")) {
         angkapilihan = 0;
     } else if (IsSame(CurrentWord.TabWord,"OWCA Hiring Manager"))
@@ -145,11 +145,9 @@ void Work(User *LoginAccount) {
     }
 
     printf("\nAnda sedang bekerja sebagai %s... harap tunggu.\n", jobList[angkapilihan].name);
-
+    
     // Pekerjaan diproses
-    for (int i = 0; i < jobList[angkapilihan].duration; i++) {
-        sleep(1);
-    }
+    sleep(jobList[angkapilihan].duration);
 
     // Pekerjaan selesai
     printf("\nPekerjaan selesai! +%d rupiah telah ditambahkan ke akun Anda.\n", jobList[angkapilihan].income);

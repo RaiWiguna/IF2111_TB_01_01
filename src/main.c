@@ -82,6 +82,14 @@ int main(){
                 Register(&LoginAccount.name,&Account);
             }
         }
+        else if(IsSame(Input.TabWord,"WORK")){
+            if(!LoadFile){
+                printf("Lakukan LOAD/START terlebih dahulu.\n");
+            }
+            else{
+                Work(&LoginAccount);
+            }
+        }
         else if(IsSame(Input.TabWord,"STORE LIST")){
             if(!IsLogin){
                 printf("Lakukan LOGIN terlebih dahulu.\n");
