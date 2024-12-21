@@ -4,8 +4,7 @@
 #include "console.h"
 
 // Console Wajib
-void Start(FILE **file, ArrayDin *Item)
-{
+void Start(FILE **file, ArrayDin *Item){
     // Algoritma
     *file = fopen("../save/default.txt", "r");
     if (*file != NULL)
@@ -14,8 +13,8 @@ void Start(FILE **file, ArrayDin *Item)
         ReadItem(*file, Item);
     }
 }
-void Load(FILE **file, Word FileName)
-{
+
+void Load(FILE **file, Word FileName){
     // Kamus Lokal
     Word tempWord;
     char filePath[200];
@@ -29,8 +28,7 @@ void Load(FILE **file, Word FileName)
     }
 }
 
-void Login(Word *LoginAccount, List L, int *Money)
-{
+void Login(Word *LoginAccount, List L, int *Money){
     // Kamus Lokal
     Word Username, Password;
     boolean Condition = false;
@@ -81,15 +79,13 @@ void Login(Word *LoginAccount, List L, int *Money)
     }
 }
 
-void Logout(Word *LoginAccount, ArrayDin *UserItem, ListLinier *Whistlist)
-{
+void Logout(Word *LoginAccount, ArrayDin *UserItem, ListLinier *Whistlist){
     (*LoginAccount).Length = 0;
     MakeArrayDin(UserItem);
     CreateEmptyListLin(Whistlist);
 }
 
-void Register(Word *LoginAccount, List *L)
-{
+void Register(Word *LoginAccount, List *L){
     // Kamus Lokal
     Word Username, Password;
     boolean Condition; // True apabila akun belum ada pada data.txt
@@ -134,8 +130,7 @@ void Register(Word *LoginAccount, List *L)
     }
 }
 
-void Work(User *LoginAccount)
-{
+void Work(User *LoginAccount){
 
     // Menampilkan daftar pekerjaan
     printf("Daftar Pekerjaan:\n");
@@ -183,8 +178,27 @@ void Work(User *LoginAccount)
     (*LoginAccount).money += jobList[angkapilihan].income;
 }
 
-void storeList(ArrayDin Item)
-{
+void WorkChallenge(int *Money){
+    printf("Daftar challenge yang tersedia:\n");
+    printf("1. Tebak Angka (biaya main=200)\n");
+    printf("2. W0RDL399 (biaya main=500)\n\n");
+
+    printf("Masukan challenge yang hendak dimainkan: ");
+    int pilihan;
+    scanf("%d", &pilihan);
+
+    if (pilihan == 1)
+    {
+        tebakAngka(Money);// Memanggil fungsi workChallenge dengan referensi user
+    } else if (pilihan == 2)
+    {
+        WORDL3(Money);
+    } else {
+        printf("Pilihan tidak valid.\n");
+    }
+}
+
+void storeList(ArrayDin Item){
     if (Item.Neff == 0)
     {
         printf("TOKO KOSONG\n");
@@ -196,8 +210,7 @@ void storeList(ArrayDin Item)
     }
 }
 
-void storeRequest(Queue *Req, ArrayDin Item)
-{
+void storeRequest(Queue *Req, ArrayDin Item){
     // Kamus Lokal
     Word input;
 
@@ -222,8 +235,7 @@ void storeRequest(Queue *Req, ArrayDin Item)
     }
 }
 
-void storeSupply(Queue *Req, ArrayDin *Item)
-{
+void storeSupply(Queue *Req, ArrayDin *Item){
     Word input, temp, price;
 
     if (isEmpty(*Req))
@@ -260,8 +272,7 @@ void storeSupply(Queue *Req, ArrayDin *Item)
     }
 }
 
-void storeRemove(ArrayDin *Item)
-{
+void storeRemove(ArrayDin *Item){
     // Kamus Lokal
     Word input;
     int index;
@@ -290,8 +301,7 @@ void storeRemove(ArrayDin *Item)
     }
 }
 
-void wishlistAdd(ListLinier *L, ArrayDin Item)
-{
+void wishlistAdd(ListLinier *L, ArrayDin Item){
     // Kamus Lokal
     Word item;
 
@@ -321,8 +331,7 @@ void wishlistAdd(ListLinier *L, ArrayDin Item)
     }
 }
 
-void wishlistSwap(ListLinier *L, int i, int j)
-{
+void wishlistSwap(ListLinier *L, int i, int j){
     // Kamus Lokal
     int bigger, smaller;
     address_list Pi, Pj;
@@ -361,8 +370,7 @@ void wishlistSwap(ListLinier *L, int i, int j)
     }
 }
 
-void wishlistRemoveNumber(ListLinier *L, int index)
-{
+void wishlistRemoveNumber(ListLinier *L, int index){
     // Kamus Lokal
     address_list p;
     Word Temp;
@@ -389,8 +397,7 @@ void wishlistRemoveNumber(ListLinier *L, int index)
     }
 }
 
-void wishlistRemove(ListLinier *L)
-{
+void wishlistRemove(ListLinier *L){
     // Kamus Lokal
     Word item;
     address_list temp;
@@ -417,8 +424,7 @@ void wishlistRemove(ListLinier *L)
     }
 }
 
-void wishlistClear(ListLinier *L)
-{
+void wishlistClear(ListLinier *L){
     address_list P;
     while (!IsEmptyListLin(*L))
     {
@@ -428,8 +434,7 @@ void wishlistClear(ListLinier *L)
     printf("Wishlist telah dikosongkan.\n");
 }
 
-void wishlistShow(ListLinier L)
-{
+void wishlistShow(ListLinier L){
     if (IsEmptyListLin(L))
     {
         printf("Wishlist kamu kosong!\n");
@@ -441,7 +446,6 @@ void wishlistShow(ListLinier L)
 }
 
 // Console Tambahan
-void HandleWrongInput()
-{
+void HandleWrongInput(){
     printf("Command yang dimasukkan salah, jika bingung ketikkan \"HELP\".\n");
 }

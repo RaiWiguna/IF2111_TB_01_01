@@ -90,6 +90,15 @@ int main(){
                 Work(&LoginAccount);
             }
         }
+        else if(IsSame(Input.TabWord,"WORK CHALLENGE")){
+            if(!LoadFile){
+                printf("Lakukan LOAD/START terlebih dahulu.\n");
+            }
+            else{
+                WorkChallenge(&LoginAccount.money);
+            }
+        }
+
         else if(IsSame(Input.TabWord,"STORE LIST")){
             if(!IsLogin){
                 printf("Lakukan LOGIN terlebih dahulu.\n");

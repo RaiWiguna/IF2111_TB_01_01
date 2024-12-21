@@ -9,6 +9,8 @@
 #include "../Kustom/Kustom.h"
 
 #define MAX_LEN_WORK 100
+#define WORD_LENGTH 5
+#define MAX_ATTEMPTS 5
 
 // Kamus Lokal
 typedef struct {
@@ -25,4 +27,15 @@ void sleep(int second);/*
     Fungsi yang mengukur waktu untuk memberikan jeda.
 */
 
+void WorkChallange(int *Money);
+
+void tebakAngka(int *Money);
+
+void getSecretWord(Word *secretWord);
+
+void checkGuess(const char *secretWord, const char *guess, char *review);
+
+void printState(char attempts[MAX_ATTEMPTS][WORD_LENGTH * 2 + 1], int attemptCount);
+
+void WORDL3(int *Money);
 #endif

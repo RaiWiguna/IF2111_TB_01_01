@@ -36,6 +36,10 @@ void Work(User *LoginAccount);/*
     Melakukan kerja, untuk mendapatkan uang.
 */
 
+void WorkChallenge(int *Money);/*
+    Memanggil Work Challange, untuk mendapatkan uang.
+*/
+
 void storeList(ArrayDin Item);/*
     Menampilkan isi dari Store
 */
